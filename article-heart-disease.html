@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Early Signs of Heart Disease – Neuracare Health Library</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fas fa-stethoscope"></i></div>Neuracare</a>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="symptom-checker.html" class="nav-link">Symptom Checker</a>
+        <a href="find-doctors.html" class="nav-link">Find Doctors</a>
+        <a href="my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="health-library.html" class="nav-link">Health Library</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div id="nav-get-started" style="display:flex;"><a href="signup.html" class="nav-cta">Get Started</a></div>
+        <div id="nav-avatar-wrap" class="nav-avatar-wrap" style="display:none;align-items:center;gap:8px;">
+          <button id="nav-avatar-btn" class="nav-avatar-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Account menu"><span id="nav-user-initial" class="nav-user-initial">U</span></button>
+          <div id="nav-avatar-dropdown" class="nav-avatar-dropdown"><a href="profile.html">Profile</a><a href="my-bookings.html">My Bookings</a><a href="#" id="nav-logout">Logout</a></div>
+        </div>
+        <button type="button" class="nav-dark-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+
+  <main class="page-main">
+    <article class="article-page">
+      <div class="container" style="max-width:720px;">
+        <a href="health-library.html" class="back-link"><i class="fas fa-arrow-left"></i> Health Library</a>
+        <header class="article-header">
+          <h1>Early Signs of Heart Disease</h1>
+          <p class="article-meta">By <strong>Dr. Sarah Johnson</strong>, Cardiologist · Jan 15, 2026</p>
+        </header>
+        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop" alt="Heart health and cardiology care" class="article-cover">
+        <div class="article-body">
+          <p>Heart disease remains one of the leading causes of death worldwide. Recognizing early warning signs can lead to earlier diagnosis and better outcomes.</p>
+          <h2>Common early symptoms</h2>
+          <p>Chest discomfort (pressure, tightness, or pain), shortness of breath—especially with activity—fatigue, and swelling in the legs or ankles can signal heart issues. Some people experience jaw or back pain, nausea, or lightheadedness.</p>
+          <h2>When to see a cardiologist</h2>
+          <p>If you have risk factors (family history, high blood pressure, diabetes, smoking, obesity) or notice any of these symptoms regularly, it’s important to get evaluated. A cardiologist can run tests such as ECG, stress tests, or echocardiograms to assess your heart health.</p>
+          <p>Don’t wait for a crisis. Early intervention can help manage conditions like hypertension and coronary artery disease with lifestyle changes and medication.</p>
+        </div>
+        <div class="article-cta glass-card">
+          <h3>Talk to a cardiologist</h3>
+          <p>Book a consultation to discuss your heart health and any symptoms or risk factors.</p>
+          <a href="find-doctors.html?specialty=cardiology" class="btn btn-primary"><i class="fas fa-user-md"></i> Book a Cardiologist</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>© 2026 Neuracare Inc.</p><a href="health-library.html">Health Library</a></div>
+    </div>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script>document.querySelector('.nav-toggle').addEventListener('click', function() { document.getElementById('nav-menu').classList.toggle('open'); });</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Doctors – Neuracare</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fas fa-stethoscope"></i></div>Neuracare</a>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="symptom-checker.html" class="nav-link">Symptom Checker</a>
+        <a href="find-doctors.html" class="nav-link active">Find Doctors</a>
+        <a href="my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="health-library.html" class="nav-link">Health Library</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div id="nav-get-started" style="display:flex;"><a href="signup.html" class="nav-cta">Get Started</a></div>
+        <div id="nav-avatar-wrap" class="nav-avatar-wrap" style="display:none;align-items:center;gap:8px;">
+          <button id="nav-avatar-btn" class="nav-avatar-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Account menu"><span id="nav-user-initial" class="nav-user-initial">U</span></button>
+          <div id="nav-avatar-dropdown" class="nav-avatar-dropdown"><a href="profile.html">Profile</a><a href="my-bookings.html">My Bookings</a><a href="#" id="nav-logout">Logout</a></div>
+        </div>
+        <button type="button" class="nav-dark-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+
+  <main class="page-main">
+    <section class="appointments">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Find a doctor</div>
+          <h2>Book a consultation with a doctor who fits your needs</h2>
+          <p>Browse verified specialists, filter by specialty or when they're free, and book a time that works for you.</p>
+        </div>
+        <div class="search-bar glass-card">
+          <select id="specialty-filter" class="field-select" style="flex:1;min-width:180px" aria-label="Filter by specialty">
+            <option value="">All Specialties</option>
+            <option value="cardiology">Cardiology</option>
+            <option value="dermatology">Dermatology</option>
+            <option value="pediatrics">Pediatrics</option>
+            <option value="neurology">Neurology</option>
+            <option value="orthopedics">Orthopedics</option>
+            <option value="general">General Medicine</option>
+          </select>
+          <select id="availability-filter" class="field-select" style="flex:1;min-width:160px" aria-label="Filter by availability">
+            <option value="today">Available Today</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+          </select>
+          <button type="button" class="btn btn-primary" onclick="typeof searchDoctors==='function'&&searchDoctors()" aria-label="Search doctors"><i class="fas fa-search"></i> Search</button>
+        </div>
+        <div id="doctors-list" class="doctors-grid"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="footer-logo"><div class="footer-logo-icon"><i class="fas fa-stethoscope"></i></div><span class="gradient-text">Neuracare</span></a><p>AI-powered telemedicine platform.</p></div>
+        <div class="footer-col"><h4>Platform</h4><ul><li><a href="symptom-checker.html">Symptom Checker</a></li><li><a href="find-doctors.html">Find Doctors</a></li><li><a href="my-bookings.html">My Bookings</a></li><li><a href="health-library.html">Health Library</a></li></ul></div>
+        <div class="footer-col"><h4>Support</h4><ul><li><a href="help-centre.html">Help Centre</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="terms-of-service.html">Terms</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 Neuracare Inc.</p></div>
+    </div>
+  </footer>
+
+  <div class="floating-actions">
+    <a href="https://wa.me/14155550100" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <div id="chatbot" class="chatbot">
+      <button id="chat-toggle" class="chat-toggle" type="button" aria-label="Open chat"><i class="fas fa-comments"></i></button>
+      <div id="chat-window" class="chat-window">
+        <div class="chat-header"><h4><i class="fas fa-robot"></i> AI Assistant</h4><button type="button" aria-label="Close"><i class="fas fa-times"></i></button></div>
+        <div id="chat-messages" class="chat-messages"><div class="message bot-message"><div class="message-content">Hi! Choose an option or type your question.</div></div></div>
+        <div class="chat-quick-replies">
+          <button type="button" class="quick-reply" data-msg="I have a headache">I have a headache</button>
+          <button type="button" class="quick-reply" data-msg="I feel feverish">I feel feverish</button>
+          <button type="button" class="quick-reply" data-msg="I have chest pain">I have chest pain</button>
+          <button type="button" class="quick-reply" data-msg="I'm feeling anxious">I'm feeling anxious</button>
+          <button type="button" class="quick-reply" data-msg="I have a skin rash">I have a skin rash</button>
+          <button type="button" class="quick-reply" data-msg="I feel short of breath">I feel short of breath</button>
+        </div>
+        <div class="chat-input"><input type="text" id="chat-input" placeholder="Ask a health question…"><button type="button" aria-label="Send"><i class="fas fa-paper-plane"></i></button></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/chat-float.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', function() { document.getElementById('nav-menu').classList.toggle('open'); });
+    setTimeout(function(){ if (typeof loadSampleDoctors === 'function') loadSampleDoctors(); }, 400);
+  </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Neuracare – AI-powered healthcare. Check symptoms, find doctors, book consultations.">
+  <title>Neuracare – AI-Powered Telemedicine</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Neuracare Home">
+        <div class="nav-logo-icon"><i class="fas fa-stethoscope" aria-hidden="true"></i></div>
+        Neuracare
+      </a>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="symptom-checker.html" class="nav-link">Symptom Checker</a>
+        <a href="find-doctors.html" class="nav-link">Find Doctors</a>
+        <a href="my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="health-library.html" class="nav-link">Health Library</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div id="nav-get-started" style="display:flex;">
+          <a href="signup.html" class="nav-cta">Get Started</a>.
+        </div>
+        <div id="nav-avatar-wrap" class="nav-avatar-wrap" style="display:none; align-items:center; gap:8px;">
+          <button id="nav-avatar-btn" class="nav-avatar-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Account menu">
+            <span id="nav-user-initial" class="nav-user-initial">U</span>
+          </button>
+          <div id="nav-avatar-dropdown" class="nav-avatar-dropdown" role="menu">
+            <a href="profile.html" role="menuitem">Profile</a>
+            <a href="my-bookings.html" role="menuitem">My Bookings</a>
+            <a href="#" id="nav-logout" role="menuitem">Logout</a>
+          </div>
+        </div>
+        <button type="button" class="nav-dark-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero" aria-label="Hero">
+    <div class="hero-container">
+      <div class="hero-content animate-on-scroll">
+        <p class="hero-eyebrow"><i class="fas fa-globe" aria-hidden="true"></i> Trusted by patients in 50+ countries</p>
+        <h1 class="hero-title">AI-Powered Healthcare, <span class="gradient-text">Whenever You Need It</span></h1>
+        <p class="hero-description">Check your symptoms with our clinical AI, find the right doctor, and book a video or in-person consultation — all in one secure platform.</p>
+        <div class="hero-actions">
+          <a href="symptom-checker.html" class="btn btn-primary btn-large"><i class="fas fa-brain"></i> Check Symptoms</a>
+          <a href="find-doctors.html" class="btn btn-secondary btn-large"><i class="fas fa-user-md"></i> Find a Doctor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST INDICATORS -->
+  <section class="trust-indicators">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item animate-on-scroll">
+          <div class="trust-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+          <span>HIPAA Compliant</span>
+        </div>
+        <div class="trust-item animate-on-scroll delay-1">
+          <div class="trust-icon"><i class="fas fa-lock" aria-hidden="true"></i></div>
+          <span>GDPR Compliant</span>
+        </div>
+        <div class="trust-item animate-on-scroll delay-2">
+          <div class="trust-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
+          <span>End-to-End Encryption</span>
+        </div>
+        <div class="trust-item animate-on-scroll delay-3">
+          <div class="trust-icon"><i class="fas fa-check-circle" aria-hidden="true"></i></div>
+          <span>Secure Telemedicine Platform</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <div class="section-tag">Simple process</div>
+        <h2>How It Works</h2>
+        <p>From symptom check to doctor consultation in three straightforward steps.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card glass-card animate-on-scroll">
+          <div class="step-num" aria-hidden="true">1</div>
+          <h3>Enter Your Symptoms</h3>
+          <p>Describe how you're feeling in plain language. Our AI suggests relevant conditions and when to see a doctor.</p>
+        </div>
+        <div class="step-card glass-card animate-on-scroll delay-1">
+          <div class="step-num" aria-hidden="true">2</div>
+          <h3>AI Analyses Possible Conditions</h3>
+          <p>Our clinical-grade engine cross-references thousands of conditions and returns ranked, probability-based insights in seconds.</p>
+        </div>
+        <div class="step-card glass-card animate-on-scroll delay-2">
+          <div class="step-num" aria-hidden="true">3</div>
+          <h3>Connect With a Doctor</h3>
+          <p>Book a video or in-person consultation with a verified specialist. Get prescriptions, referrals, and follow-up care when needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM STATISTICS (only on landing) -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item animate-on-scroll">
+          <div class="stat-number gradient-text" data-count="10000">0</div>
+          <div class="stat-label">Happy Patients</div>
+        </div>
+        <div class="stat-item animate-on-scroll delay-1">
+          <div class="stat-number gradient-text" data-count="500">0</div>
+          <div class="stat-label">Expert Doctors</div>
+        </div>
+        <div class="stat-item animate-on-scroll delay-2">
+          <div class="stat-number gradient-text" data-count="50">0</div>
+          <div class="stat-label">Specialisations</div>
+        </div>
+        <div class="stat-item animate-on-scroll delay-3">
+          <div class="stat-number gradient-text">99.9%</div>
+          <div class="stat-label">Platform Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN NEURACARE CTA (only on landing, once) -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-on-scroll">
+        <h2>Start Your Health Check Today</h2>
+        <p>Join thousands of patients who use Neuracare for symptom checks, doctor consultations, and ongoing care.</p>
+        <div class="cta-actions">
+          <a href="symptom-checker.html" class="btn btn-primary btn-large"><i class="fas fa-brain"></i> Check Symptoms</a>
+          <a href="signup.html" class="btn btn-secondary btn-large"><i class="fas fa-user-plus"></i> Create Free Account</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logo-icon"><i class="fas fa-stethoscope"></i></div>
+            <span class="gradient-text">Neuracare</span>
+          </a>
+          <p>AI-powered telemedicine platform. Check symptoms, find doctors, and book consultations — securely, from anywhere.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="symptom-checker.html">Symptom Checker</a></li>
+            <li><a href="find-doctors.html">Find Doctors</a></li>
+            <li><a href="my-bookings.html">My Bookings</a></li>
+            <li><a href="health-library.html">Health Library</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="help-centre.html">Help Centre</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="help-centre.html#faq">FAQ</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:support@neuracare.com"><i class="fas fa-envelope" style="margin-right:6px; color:var(--violet)"></i>support@neuracare.com</a></li>
+            <li><a href="tel:+14155550100"><i class="fas fa-phone" style="margin-right:6px; color:var(--cyan)"></i>+1 415-555-0100</a></li>
+            <li><a href="contact.html"><i class="fas fa-map-marker-alt" style="margin-right:6px; color:var(--pink)"></i>San Francisco, CA</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Neuracare Inc. All rights reserved.</p>
+        <div class="footer-badges">
+          <span class="badge">HIPAA Compliant</span>
+          <span class="badge">GDPR Compliant</span>
+          <span class="badge">SSL Secured</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING: WhatsApp + Chat (side by side) -->
+  <div class="floating-actions">
+    <a href="https://wa.me/14155550100" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <div id="chatbot" class="chatbot">
+      <button id="chat-toggle" class="chat-toggle" type="button" onclick="window.toggleChat && toggleChat()" aria-label="Open AI assistant">
+        <i class="fas fa-comments"></i>
+      </button>
+      <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+          <h4><i class="fas fa-robot" style="margin-right:8px; color:var(--cyan)"></i>AI Health Assistant</h4>
+          <button type="button" onclick="window.toggleChat && toggleChat()" aria-label="Close chat"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+          <div class="message bot-message">
+            <div class="message-content">👋 Hi! I'm your Neuracare AI assistant. Choose a quick option below or type your question.</div>
+          </div>
+        </div>
+        <div class="chat-quick-replies">
+          <button type="button" class="quick-reply" data-msg="I have a headache">I have a headache</button>
+          <button type="button" class="quick-reply" data-msg="I feel feverish">I feel feverish</button>
+          <button type="button" class="quick-reply" data-msg="I have chest pain">I have chest pain</button>
+          <button type="button" class="quick-reply" data-msg="I'm feeling anxious">I'm feeling anxious</button>
+          <button type="button" class="quick-reply" data-msg="I have a skin rash">I have a skin rash</button>
+          <button type="button" class="quick-reply" data-msg="I feel short of breath">I feel short of breath</button>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chat-input" placeholder="Ask a health question…" aria-label="Type your message">
+          <button type="button" onclick="window.sendMessage && sendMessage()" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/chat-float.js"></script>
+  <script src="script.js"></script>
+  <script>
+    if (typeof initScrollReveal === 'function') initScrollReveal();
+    if (typeof maybeStartCounters === 'function') setTimeout(maybeStartCounters, 500);
+  </script>
+</body>
+</html>

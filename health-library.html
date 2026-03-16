@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Library – Neuracare</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><div class="nav-logo-icon"><i class="fas fa-stethoscope"></i></div>Neuracare</a>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="symptom-checker.html" class="nav-link">Symptom Checker</a>
+        <a href="find-doctors.html" class="nav-link">Find Doctors</a>
+        <a href="my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="health-library.html" class="nav-link active">Health Library</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div id="nav-get-started" style="display:flex;"><a href="signup.html" class="nav-cta">Get Started</a></div>
+        <div id="nav-avatar-wrap" class="nav-avatar-wrap" style="display:none;align-items:center;gap:8px;">
+          <button id="nav-avatar-btn" class="nav-avatar-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Account menu"><span id="nav-user-initial" class="nav-user-initial">U</span></button>
+          <div id="nav-avatar-dropdown" class="nav-avatar-dropdown"><a href="profile.html">Profile</a><a href="my-bookings.html">My Bookings</a><a href="#" id="nav-logout">Logout</a></div>
+        </div>
+        <button type="button" class="nav-dark-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+
+  <main class="page-main">
+    <section class="blog-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Health Library</div>
+          <h2>Medical Articles &amp; Health Tips</h2>
+          <p>Evidence-based reads to help you make informed decisions about your health.</p>
+        </div>
+        <div class="blog-grid">
+          <a href="article-heart-disease.html" class="glass-card blog-card">
+            <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=300&fit=crop" alt="Heart health and cardiology"></div>
+            <div class="blog-card-content">
+              <h3>Early Signs of Heart Disease</h3>
+              <p>Know the warning symptoms and when to see a cardiologist.</p>
+              <span class="blog-link">Read article <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+          <a href="article-dermatologist.html" class="glass-card blog-card">
+            <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=300&fit=crop" alt="Skin check and dermatology"></div>
+            <div class="blog-card-content">
+              <h3>When to See a Dermatologist</h3>
+              <p>Skin changes, rashes, and moles: when to get them checked.</p>
+              <span class="blog-link">Read article <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+          <a href="article-migraines.html" class="glass-card blog-card">
+            <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&h=300&fit=crop" alt="Understanding headaches and migraines"></div>
+            <div class="blog-card-content">
+              <h3>Understanding Migraines</h3>
+              <p>Triggers, types, and when to seek specialist care.</p>
+              <span class="blog-link">Read article <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="footer-logo"><div class="footer-logo-icon"><i class="fas fa-stethoscope"></i></div><span class="gradient-text">Neuracare</span></a><p>AI-powered telemedicine platform.</p></div>
+        <div class="footer-col"><h4>Platform</h4><ul><li><a href="symptom-checker.html">Symptom Checker</a></li><li><a href="find-doctors.html">Find Doctors</a></li><li><a href="my-bookings.html">My Bookings</a></li><li><a href="health-library.html">Health Library</a></li></ul></div>
+        <div class="footer-col"><h4>Support</h4><ul><li><a href="help-centre.html">Help Centre</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="terms-of-service.html">Terms</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 Neuracare Inc.</p></div>
+    </div>
+  </footer>
+
+  <div class="floating-actions">
+    <a href="https://wa.me/14155550100" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <div id="chatbot" class="chatbot">
+      <button id="chat-toggle" class="chat-toggle" type="button" aria-label="Open chat"><i class="fas fa-comments"></i></button>
+      <div id="chat-window" class="chat-window">
+        <div class="chat-header"><h4><i class="fas fa-robot"></i> AI Assistant</h4><button type="button" aria-label="Close"><i class="fas fa-times"></i></button></div>
+        <div id="chat-messages" class="chat-messages"><div class="message bot-message"><div class="message-content">Hi!</div></div></div>
+        <div class="chat-quick-replies">
+          <button type="button" class="quick-reply" data-msg="I have a headache">I have a headache</button>
+          <button type="button" class="quick-reply" data-msg="I feel feverish">I feel feverish</button>
+          <button type="button" class="quick-reply" data-msg="I have chest pain">I have chest pain</button>
+        </div>
+        <div class="chat-input"><input type="text" id="chat-input" placeholder="Ask…"><button type="button" aria-label="Send"><i class="fas fa-paper-plane"></i></button></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/chat-float.js"></script>
+  <script>document.querySelector('.nav-toggle').addEventListener('click', function() { document.getElementById('nav-menu').classList.toggle('open'); });</script>
+</body>
+</html>
