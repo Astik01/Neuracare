@@ -78,7 +78,7 @@
           </div>
           <div class="glass-card contact-form-panel">
             <h3>Send Us a Message</h3>
-            <form id="contact-form" onsubmit="event.preventDefault(); document.getElementById('contact-message-status').textContent='Thank you! We will get back to you soon.'; document.getElementById('contact-message-status').className='registration-message success'; document.getElementById('contact-message-status').style.display='block';">
+            <form id="contact-form">
               <div class="form-row">
                 <div class="form-group"><label class="form-label" for="contact-name">Your Name</label><input type="text" id="contact-name" class="field-input" placeholder="Jane Smith" required></div>
                 <div class="form-group"><label class="form-label" for="contact-email">Email</label><input type="email" id="contact-email" class="field-input" placeholder="jane@example.com" required></div>
@@ -123,6 +123,58 @@
   <script src="js/auth.js"></script>
   <script src="js/dark-mode.js"></script>
   <script src="js/chat-float.js"></script>
-  <script>document.querySelector('.nav-toggle').addEventListener('click', function() { document.getElementById('nav-menu').classList.toggle('open'); });</script>
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', function() { document.getElementById('nav-menu').classList.toggle('open'); });
+
+    // Contact form → backend API
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var statusEl = document.getElementById('contact-message-status');
+      var btn = this.querySelector('button[type="submit"]');
+      var name = document.getElementById('contact-name').value.trim();
+      var email = document.getElementById('contact-email').value.trim();
+      var subject = document.getElementById('contact-subject').value.trim();
+      var message = document.getElementById('contact-message').value.trim();
+
+      if (!name || !email || !subject || !message) {
+        statusEl.textContent = 'Please fill in all fields.';
+        statusEl.className = 'registration-message error';
+        statusEl.style.display = 'block';
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        statusEl.textContent = 'Please enter a valid email address.';
+        statusEl.className = 'registration-message error';
+        statusEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+      try {
+        var res = await fetch('http://localhost:5000/api/contacts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, email: email, subject: subject, message: message })
+        });
+        var data = await res.json();
+        if (res.ok) {
+          statusEl.textContent = '✅ ' + (data.message || 'Message sent successfully!');
+          statusEl.className = 'registration-message success';
+          this.reset();
+        } else {
+          statusEl.textContent = data.error || 'Something went wrong.';
+          statusEl.className = 'registration-message error';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Could not reach the server. Make sure the backend is running on port 5000.';
+        statusEl.className = 'registration-message error';
+      }
+      statusEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+    });
+  </script>
 </body>
 </html>

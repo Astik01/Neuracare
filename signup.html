@@ -98,13 +98,58 @@
   <script src="js/dark-mode.js"></script>
   <script src="js/chat-float.js"></script>
   <script>
-    document.getElementById('signup-form').addEventListener('submit', function(e) {
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       var name = document.getElementById('signup-name').value.trim();
       var email = document.getElementById('signup-email').value.trim();
-      if (window.NeuracareAuth) {
-        window.NeuracareAuth.setAuthUser({ name: name, email: email });
-        window.location.href = 'index.html';
+      var password = document.getElementById('signup-password').value;
+      var msgEl = document.getElementById('signup-message');
+      var btn = this.querySelector('button[type="submit"]');
+
+      if (!name || !email || !password) {
+        msgEl.textContent = 'Please fill in all fields.';
+        msgEl.className = 'auth-message error show';
+        msgEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+      msgEl.style.display = 'none';
+
+      try {
+        var res = await fetch('http://localhost:5000/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, email: email })
+        });
+        var data = await res.json();
+        if (!res.ok) {
+          msgEl.textContent = data.error || 'Registration failed.';
+          msgEl.className = 'auth-message error show';
+          msgEl.style.display = 'block';
+          btn.disabled = false;
+          btn.innerHTML = 'Sign up';
+          return;
+        }
+        // Success — save locally and redirect
+        if (window.NeuracareAuth) {
+          window.NeuracareAuth.setAuthUser({ name: name, email: email });
+        }
+        msgEl.textContent = '✅ Account created! Redirecting...';
+        msgEl.className = 'auth-message success show';
+        msgEl.style.display = 'block';
+        setTimeout(function() { window.location.href = 'index.html'; }, 1000);
+      } catch (err) {
+        // Backend offline — save locally only
+        console.warn('Backend unavailable:', err.message);
+        if (window.NeuracareAuth) {
+          window.NeuracareAuth.setAuthUser({ name: name, email: email });
+        }
+        msgEl.textContent = 'Account created locally (server offline).';
+        msgEl.className = 'auth-message success show';
+        msgEl.style.display = 'block';
+        setTimeout(function() { window.location.href = 'index.html'; }, 1000);
       }
     });
     document.querySelector('.nav-toggle').addEventListener('click', function() { document.getElementById('nav-menu').classList.toggle('open'); });
