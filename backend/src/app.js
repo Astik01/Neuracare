@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth.routes');
 const contactsRoutes = require('./routes/contacts.routes');
 const doctorsRoutes = require('./routes/doctors.routes');
 const bookingsRoutes = require('./routes/bookings.routes');
+const symptomCheckRoutes = require('./routes/symptomCheck.routes');
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use('/api/users', usersRoutes);
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/doctors', doctorsRoutes);
 app.use('/api/bookings', bookingsRoutes);
+app.use('/api/symptom-check', symptomCheckRoutes);
 
 module.exports = app;

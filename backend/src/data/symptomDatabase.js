@@ -1,0 +1,38 @@
+const symptomDatabase = {
+  symptoms: [
+    'headache',
+    'fever',
+    'cough',
+    'chest pain',
+    'shortness of breath',
+    'nausea',
+    'vomiting',
+    'diarrhea',
+    'abdominal pain',
+    'fatigue',
+    'dizziness',
+    'rash',
+    'joint pain',
+    'back pain',
+    'muscle pain',
+    'sore throat',
+    'runny nose',
+    'congestion',
+    'sneezing',
+    'itchy eyes',
+    'weight loss',
+    'weight gain',
+    'loss of appetite',
+    'insomnia',
+    'anxiety',
+  ],
+  conditions: {
+    headache: ['migraine', 'tension headache', 'sinusitis', 'stress'],
+    fever: ['viral infection', 'bacterial infection', 'flu', 'common cold'],
+    'chest pain': ['angina', 'heart attack', 'muscle strain', 'anxiety'],
+    cough: ['common cold', 'bronchitis', 'pneumonia', 'allergies'],
+    'shortness of breath': ['asthma', 'heart failure', 'anxiety', 'pneumonia'],
+  },
+};
+
+module.exports = symptomDatabase;
