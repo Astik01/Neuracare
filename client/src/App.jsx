@@ -11,6 +11,13 @@ import SymptomChecker from './pages/SymptomChecker/SymptomChecker';
 import MyBookings from './pages/MyBookings/MyBookings';
 import Profile from './pages/Profile/Profile';
 import Contact from './pages/Contact/Contact';
+import BookingConfirmation from './pages/BookingConfirmation/BookingConfirmation';
+import About from './pages/About/About';
+import HealthLibrary from './pages/HealthLibrary/HealthLibrary';
+import ArticleDetail from './pages/ArticleDetail/ArticleDetail';
+import HelpCentre from './pages/HelpCentre/HelpCentre';
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService/TermsOfService';
 import NotFound from './pages/NotFound/NotFound';
 
 function App() {
@@ -25,9 +32,16 @@ function App() {
           <Route path="doctors/:id" element={<DoctorProfile />} />
           <Route path="symptom-checker" element={<SymptomChecker />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="about" element={<About />} />
+          <Route path="health-library" element={<HealthLibrary />} />
+          <Route path="health-library/:slug" element={<ArticleDetail />} />
+          <Route path="help-centre" element={<HelpCentre />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-of-service" element={<TermsOfService />} />
           <Route element={<ProtectedRoute />}>
             <Route path="my-bookings" element={<MyBookings />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="booking-confirmation" element={<BookingConfirmation />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>

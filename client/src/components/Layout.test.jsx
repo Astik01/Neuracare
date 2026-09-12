@@ -31,4 +31,11 @@ describe('Layout', () => {
 
     expect(screen.getByRole('link', { name: /get started/i })).toBeInTheDocument();
   });
+
+  it('renders a dark mode toggle and the chat widget launcher', () => {
+    renderLayout();
+
+    expect(screen.getByRole('button', { name: /switch to dark mode/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /open chat/i })).toBeInTheDocument();
+  });
 });

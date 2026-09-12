@@ -47,6 +47,10 @@ export default function DoctorProfile() {
         token,
         body: { doctorId: id, date, time },
       });
+      sessionStorage.setItem(
+        'neuracare_last_booking',
+        JSON.stringify({ doctorName: doctor.name, date, time }),
+      );
       navigate('/booking-confirmation');
     } catch (err) {
       setBookingError(err.message);
