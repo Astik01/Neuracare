@@ -27,3 +27,15 @@ build/
 
 
 
+
+# Backend (new)
+backend/node_modules/
+backend/.env
+
+# Frontend (new)
+client/node_modules/
+client/dist/
+client/.env
+
+# Root workspaces
+node_modules/
