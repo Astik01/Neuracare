@@ -6,6 +6,7 @@ const contactsRoutes = require('./routes/contacts.routes');
 const doctorsRoutes = require('./routes/doctors.routes');
 const bookingsRoutes = require('./routes/bookings.routes');
 const symptomCheckRoutes = require('./routes/symptomCheck.routes');
+const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
@@ -22,5 +23,8 @@ app.use('/api/contacts', contactsRoutes);
 app.use('/api/doctors', doctorsRoutes);
 app.use('/api/bookings', bookingsRoutes);
 app.use('/api/symptom-check', symptomCheckRoutes);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 module.exports = app;
