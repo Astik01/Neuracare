@@ -1,19 +1,32 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
-function renderApp() {
+function renderAt(path) {
   return render(
-    <BrowserRouter>
+    <MemoryRouter initialEntries={[path]}>
       <App />
-    </BrowserRouter>,
+    </MemoryRouter>,
   );
 }
 
-describe('App', () => {
-  it('renders the Neuracare heading', () => {
-    renderApp();
+describe('App routing', () => {
+  it('renders the Neuracare brand and Home page at /', () => {
+    renderAt('/');
 
-    expect(screen.getByRole('heading', { name: /neuracare/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /neuracare/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/your health/i);
+  });
+
+  it('renders the 404 page for an unknown route', () => {
+    renderAt('/this-route-does-not-exist');
+
+    expect(screen.getByText('404')).toBeInTheDocument();
+  });
+
+  it('redirects to login when visiting a protected route while logged out', () => {
+    renderAt('/my-bookings');
+
+    expect(screen.getByRole('heading', { name: /log in/i })).toBeInTheDocument();
   });
 });
