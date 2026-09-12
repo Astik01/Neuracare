@@ -3,41 +3,38 @@ const request = require('supertest');
 const app = require('../../src/app');
 const Doctor = require('../../src/models/Doctor');
 const db = require('../db/setup');
+const { generate_user, generate_doctor, generate_booking_payload } = require('../generators');
 
 beforeAll(async () => db.connect());
 afterEach(async () => db.clearDatabase());
 afterAll(async () => db.closeDatabase());
 
-async function signup(email) {
-  const res = await request(app)
-    .post('/api/auth/signup')
-    .send({ name: 'Test User', email, password: 'password123' });
+async function signup(overrides = {}) {
+  const res = await request(app).post('/api/auth/signup').send(generate_user(overrides));
   return res.body.token;
 }
 
-async function seedDoctor() {
-  return new Doctor({ name: 'Dr. Sarah Johnson', specialty: 'cardiology' }).save();
+async function seedDoctor(overrides = {}) {
+  return new Doctor(generate_doctor(overrides)).save();
 }
 
 describe('POST /api/bookings', () => {
   it('returns 401 without a token', async () => {
     const doctor = await seedDoctor();
 
-    const res = await request(app)
-      .post('/api/bookings')
-      .send({ doctorId: doctor._id, date: '2026-01-01', time: '10:00' });
+    const res = await request(app).post('/api/bookings').send(generate_booking_payload(doctor._id));
 
     expect(res.status).toBe(401);
   });
 
   it('creates a booking with valid data', async () => {
-    const token = await signup('patient@example.com');
-    const doctor = await seedDoctor();
+    const token = await signup();
+    const doctor = await seedDoctor({ name: 'Dr. Sarah Johnson' });
 
     const res = await request(app)
       .post('/api/bookings')
       .set('Authorization', `Bearer ${token}`)
-      .send({ doctorId: doctor._id, date: '2026-01-01', time: '10:00', reason: 'Checkup' });
+      .send(generate_booking_payload(doctor._id));
 
     expect(res.status).toBe(201);
     expect(res.body.booking.status).toBe('confirmed');
@@ -45,9 +42,9 @@ describe('POST /api/bookings', () => {
   });
 
   it.each(['doctorId', 'date', 'time'])('returns 400 when %s is missing', async (field) => {
-    const token = await signup('patient@example.com');
+    const token = await signup();
     const doctor = await seedDoctor();
-    const payload = { doctorId: doctor._id, date: '2026-01-01', time: '10:00' };
+    const payload = generate_booking_payload(doctor._id);
     delete payload[field];
 
     const res = await request(app)
@@ -59,24 +56,24 @@ describe('POST /api/bookings', () => {
   });
 
   it('returns 400 for a malformed doctor id', async () => {
-    const token = await signup('patient@example.com');
+    const token = await signup();
 
     const res = await request(app)
       .post('/api/bookings')
       .set('Authorization', `Bearer ${token}`)
-      .send({ doctorId: 'not-an-id', date: '2026-01-01', time: '10:00' });
+      .send(generate_booking_payload('not-an-id'));
 
     expect(res.status).toBe(400);
   });
 
   it('returns 404 when the doctor does not exist', async () => {
-    const token = await signup('patient@example.com');
+    const token = await signup();
     const missingDoctorId = new mongoose.Types.ObjectId();
 
     const res = await request(app)
       .post('/api/bookings')
       .set('Authorization', `Bearer ${token}`)
-      .send({ doctorId: missingDoctorId, date: '2026-01-01', time: '10:00' });
+      .send(generate_booking_payload(missingDoctorId));
 
     expect(res.status).toBe(404);
   });
@@ -91,13 +88,13 @@ describe('GET /api/bookings', () => {
 
   it("only returns the caller's own bookings", async () => {
     const doctor = await seedDoctor();
-    const tokenA = await signup('a@example.com');
-    const tokenB = await signup('b@example.com');
+    const tokenA = await signup();
+    const tokenB = await signup();
 
     await request(app)
       .post('/api/bookings')
       .set('Authorization', `Bearer ${tokenA}`)
-      .send({ doctorId: doctor._id, date: '2026-01-01', time: '10:00' });
+      .send(generate_booking_payload(doctor._id));
 
     const res = await request(app).get('/api/bookings').set('Authorization', `Bearer ${tokenB}`);
 
@@ -108,12 +105,12 @@ describe('GET /api/bookings', () => {
 
 describe('DELETE /api/bookings/:id', () => {
   it('cancels a booking owned by the caller', async () => {
-    const token = await signup('patient@example.com');
+    const token = await signup();
     const doctor = await seedDoctor();
     const created = await request(app)
       .post('/api/bookings')
       .set('Authorization', `Bearer ${token}`)
-      .send({ doctorId: doctor._id, date: '2026-01-01', time: '10:00' });
+      .send(generate_booking_payload(doctor._id));
 
     const res = await request(app)
       .delete(`/api/bookings/${created.body.booking._id}`)
@@ -123,14 +120,14 @@ describe('DELETE /api/bookings/:id', () => {
     expect(res.body.booking.status).toBe('cancelled');
   });
 
-  it('returns 403 when cancelling another user\'s booking', async () => {
+  it("returns 403 when cancelling another user's booking", async () => {
     const doctor = await seedDoctor();
-    const tokenA = await signup('a@example.com');
-    const tokenB = await signup('b@example.com');
+    const tokenA = await signup();
+    const tokenB = await signup();
     const created = await request(app)
       .post('/api/bookings')
       .set('Authorization', `Bearer ${tokenA}`)
-      .send({ doctorId: doctor._id, date: '2026-01-01', time: '10:00' });
+      .send(generate_booking_payload(doctor._id));
 
     const res = await request(app)
       .delete(`/api/bookings/${created.body.booking._id}`)
@@ -140,7 +137,7 @@ describe('DELETE /api/bookings/:id', () => {
   });
 
   it('returns 404 for a booking that does not exist', async () => {
-    const token = await signup('patient@example.com');
+    const token = await signup();
     const missingId = new mongoose.Types.ObjectId();
 
     const res = await request(app)
@@ -151,7 +148,7 @@ describe('DELETE /api/bookings/:id', () => {
   });
 
   it('returns 400 for a malformed booking id', async () => {
-    const token = await signup('patient@example.com');
+    const token = await signup();
 
     const res = await request(app)
       .delete('/api/bookings/not-an-id')

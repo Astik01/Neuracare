@@ -1,12 +1,13 @@
 const request = require('supertest');
 const app = require('../../src/app');
 const db = require('../db/setup');
+const { generate_user } = require('../generators');
 
 beforeAll(async () => db.connect());
 afterEach(async () => db.clearDatabase());
 afterAll(async () => db.closeDatabase());
 
-const signupPayload = { name: 'Ada Lovelace', email: 'ada@example.com', password: 'password123' };
+const signupPayload = generate_user();
 
 async function signupAndGetToken() {
   const res = await request(app).post('/api/auth/signup').send(signupPayload);

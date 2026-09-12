@@ -1,29 +1,25 @@
 const request = require('supertest');
 const app = require('../../src/app');
 const db = require('../db/setup');
+const { generate_contact_payload } = require('../generators');
 
 beforeAll(async () => db.connect());
 afterEach(async () => db.clearDatabase());
 afterAll(async () => db.closeDatabase());
 
-const validPayload = {
-  name: 'Ada Lovelace',
-  email: 'ada@example.com',
-  subject: 'Question about appointments',
-  message: 'How do I book a same-day appointment?',
-};
-
 describe('POST /api/contacts', () => {
   it('creates a contact message with valid data', async () => {
-    const res = await request(app).post('/api/contacts').send(validPayload);
+    const payload = generate_contact_payload();
+
+    const res = await request(app).post('/api/contacts').send(payload);
 
     expect(res.status).toBe(201);
-    expect(res.body.contact).toMatchObject(validPayload);
+    expect(res.body.contact).toMatchObject(payload);
     expect(res.body.contact.status).toBe('new');
   });
 
   it.each(['name', 'email', 'subject', 'message'])('returns 400 when %s is missing', async (field) => {
-    const payload = { ...validPayload };
+    const payload = generate_contact_payload();
     delete payload[field];
 
     const res = await request(app).post('/api/contacts').send(payload);
@@ -32,9 +28,9 @@ describe('POST /api/contacts', () => {
   });
 
   it('returns 400 for an invalid email format', async () => {
-    const res = await request(app)
-      .post('/api/contacts')
-      .send({ ...validPayload, email: 'not-an-email' });
+    const payload = generate_contact_payload({ email: 'not-an-email' });
+
+    const res = await request(app).post('/api/contacts').send(payload);
 
     expect(res.status).toBe(400);
   });
@@ -42,10 +38,8 @@ describe('POST /api/contacts', () => {
 
 describe('GET /api/contacts', () => {
   it('returns 200 and all submitted contacts, newest first', async () => {
-    await request(app).post('/api/contacts').send(validPayload);
-    await request(app)
-      .post('/api/contacts')
-      .send({ ...validPayload, email: 'second@example.com' });
+    await request(app).post('/api/contacts').send(generate_contact_payload({ email: 'first@example.com' }));
+    await request(app).post('/api/contacts').send(generate_contact_payload({ email: 'second@example.com' }));
 
     const res = await request(app).get('/api/contacts');
 

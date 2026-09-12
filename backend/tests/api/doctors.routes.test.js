@@ -3,6 +3,7 @@ const request = require('supertest');
 const app = require('../../src/app');
 const Doctor = require('../../src/models/Doctor');
 const db = require('../db/setup');
+const { generate_doctor } = require('../generators');
 
 beforeAll(async () => db.connect());
 afterEach(async () => db.clearDatabase());
@@ -10,8 +11,8 @@ afterAll(async () => db.closeDatabase());
 
 async function seedDoctors() {
   return Doctor.insertMany([
-    { name: 'Dr. Sarah Johnson', specialty: 'cardiology', rating: 4.9 },
-    { name: 'Dr. Michael Chen', specialty: 'dermatology', rating: 4.8 },
+    generate_doctor({ name: 'Dr. Sarah Johnson', specialty: 'cardiology', rating: 4.9 }),
+    generate_doctor({ name: 'Dr. Michael Chen', specialty: 'dermatology', rating: 4.8 }),
   ]);
 }
 
