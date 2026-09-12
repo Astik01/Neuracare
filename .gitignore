@@ -23,11 +23,6 @@ Thumbs.db
 dist/
 build/
 
-
-
-
-
-
 # Backend (new)
 backend/node_modules/
 backend/.env

@@ -1,5 +1,27 @@
 # Smart Healthcare - AI Symptom Checker
 
+## 🚧 Migration in Progress: MERN Rebuild
+
+This project is being rebuilt page-by-page from the original vanilla HTML/CSS/JS site into a MERN stack app:
+
+- `backend/` — Express + MongoDB API (Jest + Supertest, `mongodb-memory-server` for tests)
+- `client/` — React (Vite) + Tailwind CSS frontend (Jest + React Testing Library)
+- Root-level `.html`/`.js`/`.css` files are the **legacy static site**, still live and functional, and are removed page-by-page as each one gets a React equivalent.
+
+Quick start for the new stack:
+
+```bash
+npm install                 # installs both backend/ and client/ via npm workspaces
+npm run dev:backend         # starts the Express API (needs backend/.env, see backend/.env.example)
+npm run dev:client          # starts the Vite dev server
+npm run test:backend        # backend Jest + Supertest suite
+npm run test:client         # frontend Jest + React Testing Library suite
+```
+
+The sections below describe the original vanilla-JS site and its now-retired `server/` folder; they're kept as historical reference until superseded.
+
+---
+
 A modern healthcare application with AI-powered symptom analysis, doctor booking, and user registration. Built with HTML, CSS, JavaScript, Node.js, Express, and MongoDB.
 
 ## 🚀 Quick Start

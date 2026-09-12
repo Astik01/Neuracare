@@ -1,0 +1,15 @@
+{
+  "name": "neuracare",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "client"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:client": "npm run dev --workspace client",
+    "test:backend": "npm test --workspace backend",
+    "test:client": "npm test --workspace client"
+  }
+}
