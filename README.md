@@ -1,260 +1,83 @@
-# Smart Healthcare - AI Symptom Checker
+# Neuracare — MERN Healthcare App
 
-## 🚧 Migration in Progress: MERN Rebuild
+A healthcare application with an AI-style symptom checker, doctor search and booking, and JWT-based
+user accounts. Built as a MERN stack app: React (Vite) + Tailwind CSS on the frontend, Express +
+MongoDB on the backend, with a Jest test suite (Supertest on the backend, React Testing Library on
+the frontend) covering both.
 
-This project is being rebuilt page-by-page from the original vanilla HTML/CSS/JS site into a MERN stack app:
+This is a rebuild of an earlier vanilla HTML/CSS/JS prototype; the whole app now lives in `backend/`
+and `client/` below.
 
-- `backend/` — Express + MongoDB API (Jest + Supertest, `mongodb-memory-server` for tests)
-- `client/` — React (Vite) + Tailwind CSS frontend (Jest + React Testing Library)
-- Root-level `.html`/`.js`/`.css` files are the **legacy static site**, still live and functional, and are removed page-by-page as each one gets a React equivalent.
+## Project structure
 
-Quick start for the new stack:
+```
+backend/
+├── src/
+│   ├── app.js              # Express app (routes + middleware), no app.listen — importable by tests
+│   ├── server.js           # process entrypoint
+│   ├── config/db.js
+│   ├── models/             # User, Contact, Doctor, Booking
+│   ├── routes/             # auth, users, contacts, doctors, bookings, symptom-check
+│   ├── middleware/         # requireAuth (JWT), errorHandler
+│   ├── services/           # symptomAnalysis
+│   └── seed/                # sample doctor data + npm run seed
+└── tests/
+    ├── auth/ users/ api/ errors/ generators/ db/
+
+client/
+├── src/
+│   ├── api/client.js        # fetch wrapper (attaches JWT, normalizes errors)
+│   ├── context/AuthContext.jsx
+│   ├── components/          # Layout, ProtectedRoute, ChatWidget
+│   ├── hooks/useDarkMode.js
+│   ├── data/                # articles.js, faqs.js
+│   └── pages/                # one folder per route, tests colocated
+```
+
+## Quick start
 
 ```bash
-npm install                 # installs both backend/ and client/ via npm workspaces
-npm run dev:backend         # starts the Express API (needs backend/.env, see backend/.env.example)
-npm run dev:client          # starts the Vite dev server
-npm run test:backend        # backend Jest + Supertest suite
-npm run test:client         # frontend Jest + React Testing Library suite
+npm install                 # installs backend/ and client/ via npm workspaces
+cp backend/.env.example backend/.env   # then set MONGO_URI / JWT_SECRET
+npm run dev:backend         # Express API on http://localhost:5000
+npm run dev:client          # Vite dev server on http://localhost:5173
+npm run seed --workspace backend   # optional: seed sample doctors
 ```
 
-The sections below describe the original vanilla-JS site and its now-retired `server/` folder; they're kept as historical reference until superseded.
+## Tests
 
----
-
-A modern healthcare application with AI-powered symptom analysis, doctor booking, and user registration. Built with HTML, CSS, JavaScript, Node.js, Express, and MongoDB.
-
-## 🚀 Quick Start
-
-### Frontend
-1. **Simply open `index.html` in your web browser** (for basic functionality)
-2. For full functionality with user registration, you need to run the backend server
-
-### Backend Setup (Required for User Registration)
-1. Navigate to the `server` directory
-2. Install dependencies: `npm install`
-3. Create a `.env` file (see MongoDB Setup below)
-4. Start the server: `npm start`
-5. The server will run on `http://localhost:5000`
-
-## 📁 Project Structure
-
-```
-DMND FINAL PROJECT/
-├── index.html          # Main application file
-├── styles.css          # All styling and responsive design
-├── script.js           # Frontend functionality and API calls
-├── server/
-│   ├── server.js       # Express backend server
-│   ├── package.json    # Node.js dependencies
-│   └── .env            # MongoDB connection string (create this)
-└── README.md           # This file
-```
-
-## ✨ Features
-
-### 🤖 AI Symptom Checker
-- Interactive symptom input with autocomplete
-- Real-time symptom analysis
-- Condition probability scoring
-- Urgency level assessment
-- Age and gender consideration
-
-### 👨‍⚕️ Doctor Search & Booking
-- Sample doctor database
-- Specialty filtering (Cardiology, Dermatology, Pediatrics, etc.)
-- Doctor profiles with ratings and consultation fees
-- Booking simulation
-
-### 💬 Interactive Chatbot
-- AI assistant for healthcare questions
-- Real-time chat interface
-- Pre-defined responses for common queries
-- Floating chat bubble
-
-### 📱 Professional UI/UX
-- Modern, responsive healthcare design
-- Mobile-friendly interface
-- Smooth animations and transitions
-- Clean, professional color scheme
-- Font Awesome icons
-
-### 🗄️ Backend & Database
-- Express.js REST API server
-- MongoDB database integration
-- User registration and data persistence
-- Mongoose ODM for data modeling
-
-## 🎯 How to Use
-
-### Symptom Checker
-1. Navigate to the "Symptom Checker" section
-2. Type symptoms like "headache", "fever", "chest pain"
-3. Add multiple symptoms as needed
-4. Select age group and gender
-5. Click "Analyze Symptoms" to get AI insights
-
-### Doctor Search
-1. Go to the "Appointments" section
-2. Filter by specialty or availability
-3. View doctor profiles and ratings
-4. Click "Book Now" to simulate booking
-
-### Chatbot
-1. Click the chat bubble in the bottom-right corner
-2. Ask questions like:
-   - "hello" - Greeting
-   - "appointment" - Booking help
-   - "symptoms" - Symptom checker info
-   - "cost" - Pricing information
-   - "emergency" - Emergency guidance
-
-## 🗄️ MongoDB Setup
-
-### Option 1: MongoDB Atlas (Cloud - Recommended)
-1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
-2. Sign up for a free account
-3. Create a new cluster (free tier available)
-4. Click "Connect" → "Connect your application"
-5. Copy the connection string
-6. Create a `.env` file in the `server` directory:
-   ```
-   MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/healthcare-db?retryWrites=true&w=majority
-   PORT=5000
-   ```
-7. Replace `username`, `password`, and `cluster` with your actual values
-
-### Option 2: Local MongoDB
-1. Install MongoDB locally on your machine
-2. Start MongoDB service
-3. Create a `.env` file in the `server` directory:
-   ```
-   MONGO_URI=mongodb://localhost:27017/healthcare-db
-   PORT=5000
-   ```
-
-### Testing the Connection
-1. Navigate to `server` directory
-2. Run `npm install` (if not already done)
-3. Run `npm start`
-4. You should see: `✅ Successfully connected to MongoDB`
-
-## 🔧 Customization
-
-### Adding More Doctors
-Edit the `sampleDoctors` array in `script.js`:
-
-```javascript
-const sampleDoctors = [
-    {
-        id: 4,
-        name: "Dr. Your Doctor",
-        specialty: "specialty",
-        specialties: ["Specialty 1", "Specialty 2"],
-        rating: 4.8,
-        experience: "X years",
-        fee: "$XXX",
-        availability: "Available",
-        avatar: "fas fa-user-md"
-    }
-    // ... add more doctors
-];
-```
-
-### Adding More Symptoms
-Update the `symptomDatabase` object in `script.js`:
-
-```javascript
-const symptomDatabase = {
-    symptoms: [
-        "your", "new", "symptoms", "here"
-    ],
-    conditions: {
-        "symptom": ["condition1", "condition2", "condition3"]
-    }
-};
-```
-
-### Changing Colors/Theme
-Edit the CSS variables in `styles.css`:
-
-```css
-/* Primary colors */
-.btn-primary {
-    background: linear-gradient(135deg, #your-color-1, #your-color-2);
-}
-```
-
-## 🌐 Browser Compatibility
-
-- ✅ Chrome (recommended)
-- ✅ Firefox
-- ✅ Safari
-- ✅ Edge
-- ✅ Mobile browsers
-
-## 📱 Mobile Support
-
-The application is fully responsive and works great on:
-- 📱 Smartphones
-- 📱 Tablets
-- 💻 Desktop computers
-
-## 🎨 Design Features
-
-- **Modern Healthcare Theme**: Professional blue/teal color scheme
-- **Responsive Design**: Works on all screen sizes
-- **Smooth Animations**: CSS transitions and hover effects
-- **Clean Typography**: Inter and Poppins fonts
-- **Accessible**: Good contrast and readable text
-
-## 🚀 Deployment
-
-### Option 1: Static Hosting
-Upload all 3 files to any web hosting service:
-- GitHub Pages
-- Netlify
-- Vercel
-- Any web server
-
-### Option 2: Local Development
 ```bash
-# Using Python
-python -m http.server 8000
-
-# Using Node.js (if installed)
-npx serve .
-
-# Then visit: http://localhost:8000
+npm run test:backend        # Jest + Supertest, mongodb-memory-server (no real DB needed)
+npm run test:client         # Jest + React Testing Library
 ```
 
-## 📋 Demo Data
+Both suites also run in CI on every push/PR via `.github/workflows/ci.yml`.
 
-The application includes sample data for demonstration:
-- 3 sample doctors with different specialties
-- Common symptoms database
-- Pre-defined chatbot responses
-- Mock AI analysis results
+## Features
 
-## 🔒 Security Note
+- **Auth** — signup/login backed by bcrypt password hashing and JWT (`/api/auth`), with a
+  `requireAuth` middleware protecting `/api/users/me`, `/api/bookings`, and profile/booking pages.
+- **Symptom Checker** — `/api/symptom-check` scores a set of symptoms against a small condition
+  database and returns the top matches with an urgency level. This is a demo heuristic, not a
+  medical diagnosis.
+- **Find Doctors / Doctor Profile** — filterable doctor listing backed by a `Doctor` model, with
+  booking directly from a doctor's profile.
+- **My Bookings** — a signed-in user's own bookings, with cancellation.
+- **Contact** — a simple message form backed by `/api/contacts`.
+- **Health Library** — a few sample articles, and a searchable FAQ Help Centre.
+- **Dark mode** and a **floating chat widget** with canned, keyword-based replies.
 
-This is a demo application. For production use:
-- Add proper authentication
-- Implement real AI/ML models
-- Use secure backend services
-- Follow HIPAA compliance guidelines
+## Environment variables (`backend/.env`)
 
-## 🆘 Support
+```
+MONGO_URI=mongodb://localhost:27017/neuracare
+PORT=5000
+JWT_SECRET=<a real random secret>
+JWT_EXPIRES_IN=1h
+```
 
-This is a lightweight demo application. For questions:
-1. Check the code comments in `script.js`
-2. Review the CSS classes in `styles.css`
-3. Modify the HTML structure in `index.html`
+## Security note
 
-## 📄 License
-
-This project is for educational and demonstration purposes.
-
----
-
-**Ready to use! Just open `index.html` in your browser and start exploring! 🏥✨**
+This is a demo/portfolio application. Passwords are hashed and auth is real, but there's no rate
+limiting, email verification, or password-reset flow, and the symptom checker is a heuristic, not a
+clinical tool. Don't use it for real medical decisions.
