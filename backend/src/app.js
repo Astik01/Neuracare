@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const usersRoutes = require('./routes/users.routes');
 const authRoutes = require('./routes/auth.routes');
+const contactsRoutes = require('./routes/contacts.routes');
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/contacts', contactsRoutes);
 
 module.exports = app;
