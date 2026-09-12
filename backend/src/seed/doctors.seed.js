@@ -1,0 +1,40 @@
+const doctors = [
+  {
+    name: 'Dr. Sarah Johnson',
+    specialty: 'cardiology',
+    specialties: ['Cardiology', 'Internal Medicine'],
+    rating: 4.9,
+    experience: '15 years',
+    fee: '$150',
+    availability: 'Available Today',
+    avatar: 'fas fa-user-md',
+    photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop',
+    bio: 'Board-certified cardiologist with over 15 years of experience. Specializes in preventive cardiology and heart failure management.',
+  },
+  {
+    name: 'Dr. Michael Chen',
+    specialty: 'dermatology',
+    specialties: ['Dermatology', 'General Practice'],
+    rating: 4.8,
+    experience: '12 years',
+    fee: '$120',
+    availability: 'Available Tomorrow',
+    avatar: 'fas fa-user-md',
+    photo: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop',
+    bio: 'Dermatologist focused on medical and cosmetic dermatology. Expert in skin cancer screening and treatment.',
+  },
+  {
+    name: 'Dr. Emily Rodriguez',
+    specialty: 'pediatrics',
+    specialties: ['Pediatrics', 'Family Medicine'],
+    rating: 4.9,
+    experience: '10 years',
+    fee: '$100',
+    availability: 'Available This Week',
+    avatar: 'fas fa-user-md',
+    photo: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=200&h=200&fit=crop',
+    bio: 'Pediatrician dedicated to child health from infancy through adolescence. Passionate about preventive care and family education.',
+  },
+];
+
+module.exports = doctors;
