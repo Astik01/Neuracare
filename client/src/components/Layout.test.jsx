@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
 import { AuthProvider } from '../context/AuthContext';
@@ -21,8 +21,9 @@ describe('Layout', () => {
   it('renders the brand, nav links, and page content', () => {
     renderLayout();
 
-    expect(screen.getByRole('link', { name: /neuracare/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /find doctors/i })).toBeInTheDocument();
+    const nav = screen.getByRole('navigation', { name: /main navigation/i });
+    expect(within(nav).getByRole('link', { name: /neuracare/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('link', { name: /find doctors/i })).toBeInTheDocument();
     expect(screen.getByText('Home content')).toBeInTheDocument();
   });
 
