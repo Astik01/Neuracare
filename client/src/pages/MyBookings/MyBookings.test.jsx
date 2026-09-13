@@ -1,5 +1,6 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import MyBookings from './MyBookings';
 import { apiFetch } from '../../api/client';
 import { AuthContext } from '../../context/AuthContext';
@@ -11,7 +12,9 @@ function renderPage() {
     <AuthContext.Provider
       value={{ isAuthenticated: true, token: 'jwt-token', user: {}, logout: jest.fn() }}
     >
-      <MyBookings />
+      <MemoryRouter>
+        <MyBookings />
+      </MemoryRouter>
     </AuthContext.Provider>,
   );
 }
