@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import AuthShell from '../../components/AuthShell';
 
 export default function Signup() {
   const { signup } = useAuth();
@@ -26,11 +27,19 @@ export default function Signup() {
   }
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Create your account</h1>
-      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <AuthShell eyebrow="Join thousands getting clearer answers about their health.">
+      <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+        Create your account
+      </h1>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        Already have an account?{' '}
+        <Link to="/login" className="font-medium text-brand-700 hover:underline dark:text-brand-400">
+          Log in
+        </Link>
+      </p>
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-200">
             Name
           </label>
           <input
@@ -39,11 +48,11 @@ export default function Signup() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="mt-1 w-full rounded border border-slate-300 px-3 py-2"
+            className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200">
             Email
           </label>
           <input
@@ -52,11 +61,11 @@ export default function Signup() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="mt-1 w-full rounded border border-slate-300 px-3 py-2"
+            className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-200">
             Password
           </label>
           <input
@@ -66,9 +75,9 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            className="mt-1 w-full rounded border border-slate-300 px-3 py-2"
+            className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           />
-          <p className="mt-1 text-xs text-slate-500">At least 8 characters.</p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">At least 8 characters.</p>
         </div>
         {error && (
           <p role="alert" className="text-sm text-red-600">
@@ -78,11 +87,11 @@ export default function Signup() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-teal-700 px-4 py-2 font-medium text-white hover:bg-teal-800 disabled:opacity-60"
+          className="w-full rounded-lg bg-brand-700 px-4 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60"
         >
           {isSubmitting ? 'Creating account…' : 'Sign up'}
         </button>
       </form>
-    </div>
+    </AuthShell>
   );
 }

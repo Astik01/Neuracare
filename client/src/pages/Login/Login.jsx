@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import AuthShell from '../../components/AuthShell';
 
 export default function Login() {
   const { login } = useAuth();
@@ -27,11 +28,17 @@ export default function Login() {
   }
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Log in</h1>
-      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <AuthShell eyebrow="Welcome back to calmer, clearer healthcare.">
+      <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Log in</h1>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        New here?{' '}
+        <Link to="/signup" className="font-medium text-brand-700 hover:underline dark:text-brand-400">
+          Create an account
+        </Link>
+      </p>
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200">
             Email
           </label>
           <input
@@ -40,11 +47,11 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="mt-1 w-full rounded border border-slate-300 px-3 py-2"
+            className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-200">
             Password
           </label>
           <input
@@ -53,7 +60,7 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="mt-1 w-full rounded border border-slate-300 px-3 py-2"
+            className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           />
         </div>
         {error && (
@@ -64,11 +71,11 @@ export default function Login() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-teal-700 px-4 py-2 font-medium text-white hover:bg-teal-800 disabled:opacity-60"
+          className="w-full rounded-lg bg-brand-700 px-4 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60"
         >
           {isSubmitting ? 'Logging in…' : 'Log in'}
         </button>
       </form>
-    </div>
+    </AuthShell>
   );
 }
