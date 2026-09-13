@@ -173,7 +173,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 dark:bg-slate-800/40">
+      <section className="bg-slate-50 py-16 dark:bg-slate-800">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-medium text-brand-700 dark:text-brand-400">How it works</p>
@@ -184,7 +184,7 @@ export default function Home() {
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
             {STEPS.map((step) => (
               <div key={step.number}>
-                <p className="font-display text-3xl font-bold text-brand-200 dark:text-brand-900">
+                <p className="font-display text-3xl font-bold text-brand-200 dark:text-brand-500">
                   {step.number}
                 </p>
                 <h3 className="mt-2 font-display text-lg font-semibold text-slate-900 dark:text-white">

@@ -87,7 +87,7 @@ export default function FindDoctors() {
       <div className="mt-8">
         {status === 'loading' && <p className="text-slate-600 dark:text-slate-300">Loading doctors…</p>}
         {status === 'error' && (
-          <p role="alert" className="text-red-600">
+          <p role="alert" className="text-red-600 dark:text-red-400">
             {error}
           </p>
         )}

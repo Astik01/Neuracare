@@ -65,7 +65,7 @@ export default function DoctorProfile() {
   if (status === 'loading') return <p className="px-4 py-12">Loading doctor…</p>;
   if (status === 'error')
     return (
-      <p role="alert" className="px-4 py-12 text-red-600">
+      <p role="alert" className="px-4 py-12 text-red-600 dark:text-red-400">
         {error}
       </p>
     );
@@ -150,7 +150,7 @@ export default function DoctorProfile() {
             />
           </div>
           {bookingError && (
-            <p role="alert" className="text-sm text-red-600">
+            <p role="alert" className="text-sm text-red-600 dark:text-red-400">
               {bookingError}
             </p>
           )}

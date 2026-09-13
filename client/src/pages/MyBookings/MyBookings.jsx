@@ -46,7 +46,7 @@ export default function MyBookings() {
   if (status === 'loading') return <p className="px-4 py-12">Loading your bookings…</p>;
   if (status === 'error')
     return (
-      <p role="alert" className="px-4 py-12 text-red-600">
+      <p role="alert" className="px-4 py-12 text-red-600 dark:text-red-400">
         {error}
       </p>
     );
@@ -95,7 +95,7 @@ export default function MyBookings() {
                   <button
                     type="button"
                     onClick={() => handleCancel(booking._id)}
-                    className="text-sm font-medium text-red-600 hover:underline"
+                    className="text-sm font-medium text-red-600 dark:text-red-400 hover:underline"
                   >
                     Cancel
                   </button>

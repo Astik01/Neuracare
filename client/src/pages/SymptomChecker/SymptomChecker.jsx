@@ -96,7 +96,7 @@ export default function SymptomChecker() {
         </ul>
 
         {error && (
-          <p role="alert" className="mb-4 text-sm text-red-600">
+          <p role="alert" className="mb-4 text-sm text-red-600 dark:text-red-400">
             {error}
           </p>
         )}

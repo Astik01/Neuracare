@@ -80,7 +80,7 @@ export default function Signup() {
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">At least 8 characters.</p>
         </div>
         {error && (
-          <p role="alert" className="text-sm text-red-600">
+          <p role="alert" className="text-sm text-red-600 dark:text-red-400">
             {error}
           </p>
         )}

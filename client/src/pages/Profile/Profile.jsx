@@ -38,7 +38,7 @@ export default function Profile() {
   if (status === 'loading') return <p className="px-4 py-12">Loading profile…</p>;
   if (status === 'error')
     return (
-      <p role="alert" className="px-4 py-12 text-red-600">
+      <p role="alert" className="px-4 py-12 text-red-600 dark:text-red-400">
         {error}
       </p>
     );
