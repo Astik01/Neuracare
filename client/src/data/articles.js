@@ -65,6 +65,138 @@ export const articles = [
       },
     ],
   },
+  {
+    slug: 'sleep-health',
+    title: 'Why Quality Sleep Matters for Your Health',
+    excerpt: 'How sleep affects your heart, mood, and immune system — and simple habits that help.',
+    author: 'Dr. Lena Ortiz, Sleep Medicine',
+    date: 'Feb 2, 2026',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: [
+      'Sleep isn’t just downtime — it’s when your body repairs tissue, consolidates memory, and regulates hormones that affect appetite, mood, and immune function. Chronic poor sleep is linked to higher risk of heart disease, diabetes, and anxiety.',
+    ],
+    sections: [
+      {
+        heading: 'How much sleep do you need?',
+        body: 'Most adults need 7–9 hours per night. Consistently sleeping less (or drastically more) is associated with worse cardiovascular and metabolic health, even if you feel used to it.',
+      },
+      {
+        heading: 'Habits that improve sleep quality',
+        body: 'Keep a consistent sleep and wake time, limit caffeine after midday, dim screens an hour before bed, and keep your bedroom cool and dark. If you regularly struggle to fall or stay asleep, a doctor can screen for underlying issues like sleep apnea.',
+      },
+    ],
+  },
+  {
+    slug: 'nutrition-basics',
+    title: 'Building a Balanced Plate: Nutrition Basics',
+    excerpt: 'A simple framework for balanced meals, portion sizes, and reading nutrition labels.',
+    author: 'Dr. Aisha Bello, Clinical Nutrition',
+    date: 'Jan 28, 2026',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: [
+      'Good nutrition doesn’t require strict rules or eliminating entire food groups. A balanced plate — built around vegetables, lean protein, whole grains, and healthy fats — covers most people’s needs.',
+    ],
+    sections: [
+      {
+        heading: 'A simple plate framework',
+        body: 'Aim for half your plate as vegetables and fruit, a quarter as lean protein (poultry, fish, beans, tofu), and a quarter as whole grains or starchy vegetables, plus a small amount of healthy fat like olive oil or avocado.',
+      },
+      {
+        heading: 'Reading nutrition labels',
+        body: 'Check serving size first, since other numbers scale from it. Watch added sugars and sodium, and favor foods with recognizable, whole-food ingredients over heavily processed options.',
+      },
+    ],
+  },
+  {
+    slug: 'managing-anxiety',
+    title: 'Understanding and Managing Anxiety',
+    excerpt: 'Recognizing common symptoms and evidence-based strategies that can help.',
+    author: 'Dr. Marcus Webb, Psychiatry',
+    date: 'Jan 22, 2026',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: [
+      'Occasional worry is normal, but persistent anxiety that interferes with daily life — work, relationships, sleep — may be a treatable condition rather than just "stress."',
+    ],
+    sections: [
+      {
+        heading: 'Common symptoms',
+        body: 'Racing thoughts, restlessness, muscle tension, difficulty concentrating, and physical symptoms like a racing heart or upset stomach can all be signs of an anxiety disorder, especially when they persist for weeks.',
+      },
+      {
+        heading: 'What can help',
+        body: 'Regular exercise, sleep, and limiting caffeine/alcohol help many people. Cognitive behavioral therapy and, in some cases, medication are effective evidence-based treatments — a doctor or therapist can help find the right combination.',
+      },
+    ],
+  },
+  {
+    slug: 'diabetes-management',
+    title: 'Everyday Diabetes Management Tips',
+    excerpt: 'Blood sugar monitoring, diet, and lifestyle habits for living well with diabetes.',
+    author: 'Dr. Priya Nair, Endocrinology',
+    date: 'Jan 18, 2026',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: [
+      'Managing diabetes well is about consistent daily habits more than occasional big changes. Small, sustainable routines around monitoring, diet, and activity make the biggest difference over time.',
+    ],
+    sections: [
+      {
+        heading: 'Monitoring and medication',
+        body: 'Check blood sugar as often as your care plan recommends, and take medications on schedule. Keeping a simple log helps you and your doctor spot patterns and adjust treatment.',
+      },
+      {
+        heading: 'Diet and activity habits',
+        body: 'Favor high-fiber, low-glycemic foods, spread carbohydrates evenly across meals, and aim for regular movement — even short walks after meals can help stabilize blood sugar.',
+      },
+    ],
+  },
+  {
+    slug: 'cold-vs-flu',
+    title: 'Common Cold vs. Flu: Know the Difference',
+    excerpt: 'Comparing symptoms and duration so you know when to rest and when to call a doctor.',
+    author: 'Dr. Tom Baker, Family Medicine',
+    date: 'Jan 12, 2026',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: [
+      'Colds and flu share some symptoms — congestion, cough, sore throat — which makes them easy to confuse. Flu tends to come on faster and hit harder.',
+    ],
+    sections: [
+      {
+        heading: 'Key symptom differences',
+        body: 'Colds usually develop gradually with mild symptoms. Flu typically starts suddenly with high fever, body aches, chills, and fatigue that can last a week or more.',
+      },
+      {
+        heading: 'When to see a doctor',
+        body: 'Most colds resolve with rest and fluids. See a doctor for flu-like symptoms if you’re at higher risk of complications, symptoms are severe, or you’re not improving after several days — early antiviral treatment can help with flu.',
+      },
+    ],
+  },
+  {
+    slug: 'joint-health-exercise',
+    title: 'Exercise Tips for Healthy Joints',
+    excerpt: 'Low-impact routines and habits that help protect your joints as you stay active.',
+    author: 'Dr. Grace Kim, Orthopedics',
+    date: 'Jan 8, 2026',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: [
+      'Staying active is one of the best things you can do for joint health, but the wrong routine — or ignoring warning signs — can do more harm than good.',
+    ],
+    sections: [
+      {
+        heading: 'Low-impact options',
+        body: 'Swimming, cycling, and walking put less stress on joints than high-impact sports while still building strength and endurance. Pairing cardio with light strength training helps support the muscles around your joints.',
+      },
+      {
+        heading: 'Warning signs to watch for',
+        body: 'Sharp pain, swelling that doesn’t subside, or joint pain that worsens with activity are signs to slow down and check in with a doctor rather than pushing through.',
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug) {

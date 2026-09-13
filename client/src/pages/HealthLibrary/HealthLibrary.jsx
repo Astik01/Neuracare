@@ -3,8 +3,14 @@ import { articles } from '../../data/articles';
 
 const ARTICLE_IMAGES = {
   'heart-disease': 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=500&h=320&fit=crop',
-  dermatologist: 'https://images.unsplash.com/photo-1642844816891-14ecb3667a2f?w=500&h=320&fit=crop',
+  dermatologist: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=500&h=320&fit=crop',
   migraines: 'https://images.unsplash.com/photo-1541199249251-f713e6145474?w=500&h=320&fit=crop',
+  'sleep-health': 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=500&h=320&fit=crop',
+  'nutrition-basics': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&h=320&fit=crop',
+  'managing-anxiety': 'https://images.unsplash.com/photo-1493836512294-502baa1986e2?w=500&h=320&fit=crop',
+  'diabetes-management': 'https://images.unsplash.com/photo-1554177255-61502b352de3?w=500&h=320&fit=crop',
+  'cold-vs-flu': 'https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=500&h=320&fit=crop',
+  'joint-health-exercise': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=320&fit=crop',
 };
 const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=320&fit=crop';

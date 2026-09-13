@@ -11,7 +11,7 @@ describe('HealthLibrary', () => {
     );
 
     expect(screen.getByText('Early Signs of Heart Disease')).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /read article/i })).toHaveLength(3);
+    expect(screen.getAllByRole('link', { name: /read article/i })).toHaveLength(9);
     expect(screen.getAllByRole('link', { name: /read article/i })[0]).toHaveAttribute(
       'href',
       '/health-library/heart-disease',
