@@ -38,7 +38,7 @@ client/
 
 ```bash
 npm install                 # installs backend/ and client/ via npm workspaces
-cp backend/.env.example backend/.env   # then set MONGO_URI / JWT_SECRET
+cp backend/.env.example backend/.env   # then set MONGODB_URI (MongoDB Atlas) / JWT_SECRET
 npm run dev:backend         # Express API on http://localhost:5000
 npm run dev:client          # Vite dev server on http://localhost:5173
 npm run seed --workspace backend   # optional: seed sample doctors
@@ -70,11 +70,16 @@ Both suites also run in CI on every push/PR via `.github/workflows/ci.yml`.
 ## Environment variables (`backend/.env`)
 
 ```
-MONGO_URI=mongodb://localhost:27017/neuracare
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/neuracare?retryWrites=true&w=majority
 PORT=5000
 JWT_SECRET=<a real random secret>
 JWT_EXPIRES_IN=1h
 ```
+
+The backend connects to a [MongoDB Atlas](https://www.mongodb.com/atlas) cluster via `MONGODB_URI`.
+Get the connection string from the Atlas dashboard (Database → Connect → Drivers), swap in your
+database user's credentials, and put it in `backend/.env` — never commit it. Tests never touch
+Atlas: they spin up an in-memory MongoDB via `mongodb-memory-server` (`backend/tests/db/setup.js`).
 
 ## Security note
 
