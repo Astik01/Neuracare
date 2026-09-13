@@ -39,6 +39,20 @@ const FOOTER_COLUMNS = [
   },
 ];
 
+function UserAvatarIcon({ className = 'h-4 w-4' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.4" fill="currentColor" />
+      <path
+        d="M4.5 19.5a7.5 7.5 0 0 1 15 0"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function BrandMark() {
   return (
     <svg
@@ -119,8 +133,11 @@ export default function Layout() {
                 </Link>
                 <Link
                   to="/profile"
-                  className="text-sm font-medium text-slate-600 hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-400"
+                  className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-400"
                 >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
+                    <UserAvatarIcon />
+                  </span>
                   {user?.name || 'Profile'}
                 </Link>
                 <button
@@ -181,8 +198,11 @@ export default function Layout() {
                     <Link
                       to="/profile"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                     >
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
+                        <UserAvatarIcon className="h-3.5 w-3.5" />
+                      </span>
                       {user?.name || 'Profile'}
                     </Link>
                   </li>
