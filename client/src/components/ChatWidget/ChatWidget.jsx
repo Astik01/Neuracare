@@ -25,27 +25,27 @@ export default function ChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {isOpen && (
-        <div className="mb-3 w-80 rounded-lg border border-slate-200 bg-white shadow-xl flex flex-col max-h-96">
-          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-            <h2 className="font-semibold text-slate-900 text-sm">AI Assistant</h2>
+        <div className="mb-3 flex max-h-96 w-80 flex-col rounded-2xl border border-slate-200 bg-white shadow-glow dark:border-slate-700 dark:bg-slate-800">
+          <div className="flex items-center justify-between rounded-t-2xl border-b border-slate-200 bg-brand-700 px-4 py-3 dark:border-slate-700">
+            <h2 className="font-display text-sm font-semibold text-white">AI Assistant</h2>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close chat"
-              className="text-slate-400 hover:text-slate-600"
+              className="text-brand-100 hover:text-white"
             >
               ×
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2 text-sm">
+          <div className="flex-1 space-y-2 overflow-y-auto px-4 py-3 text-sm">
             {messages.map((message, index) => (
               <div
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 className={
                   message.from === 'user'
-                    ? 'ml-auto max-w-[80%] rounded-lg bg-teal-700 px-3 py-2 text-white'
-                    : 'mr-auto max-w-[85%] rounded-lg bg-slate-100 px-3 py-2 text-slate-800'
+                    ? 'ml-auto max-w-[80%] rounded-2xl bg-brand-700 px-3 py-2 text-white'
+                    : 'mr-auto max-w-[85%] rounded-2xl bg-slate-100 px-3 py-2 text-slate-800 dark:bg-slate-700 dark:text-slate-100'
                 }
               >
                 <p className="font-medium">{message.text}</p>
@@ -58,13 +58,13 @@ export default function ChatWidget() {
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap gap-1 px-4 py-2 border-t border-slate-100">
+          <div className="flex flex-wrap gap-1 border-t border-slate-100 px-4 py-2 dark:border-slate-700">
             {QUICK_REPLIES.map((reply) => (
               <button
                 key={reply}
                 type="button"
                 onClick={() => send(reply)}
-                className="rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-700 hover:bg-slate-200"
+                className="rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-700 transition hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
               >
                 {reply}
               </button>
@@ -75,7 +75,7 @@ export default function ChatWidget() {
               event.preventDefault();
               send(input);
             }}
-            className="flex gap-2 border-t border-slate-200 p-2"
+            className="flex gap-2 border-t border-slate-200 p-2 dark:border-slate-700"
           >
             <label htmlFor="chat-input" className="sr-only">
               Ask a question
@@ -85,9 +85,9 @@ export default function ChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask…"
-              className="flex-1 rounded border border-slate-300 px-2 py-1 text-sm"
+              className="flex-1 rounded-full border border-slate-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
             />
-            <button type="submit" className="text-teal-700" aria-label="Send">
+            <button type="submit" className="text-brand-700 dark:text-brand-400" aria-label="Send">
               ➤
             </button>
           </form>
@@ -98,7 +98,7 @@ export default function ChatWidget() {
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-label={isOpen ? 'Minimize chat' : 'Open chat'}
-        className="h-14 w-14 rounded-full bg-teal-700 text-white shadow-lg hover:bg-teal-800"
+        className="h-14 w-14 rounded-full bg-brand-700 text-white shadow-glow transition hover:bg-brand-800"
       >
         💬
       </button>
