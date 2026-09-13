@@ -23,18 +23,22 @@ const SECTIONS = [
 
 export default function PrivacyPolicy() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900 mb-1">Privacy Policy</h1>
-      <p className="text-sm text-slate-500 mb-6">Last updated: January 2026</p>
-      <p className="text-slate-700 mb-6">
+    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
+      <h1 className="mb-1 font-display text-3xl font-bold text-slate-900 dark:text-white">
+        Privacy Policy
+      </h1>
+      <p className="mb-6 text-sm text-slate-500 dark:text-slate-400">Last updated: January 2026</p>
+      <p className="mb-6 text-slate-700 dark:text-slate-300">
         Neuracare Inc. ("we", "us", "our") is committed to protecting your personal and health
         information. This policy describes how we collect, use, disclose, and safeguard
         information in compliance with HIPAA, GDPR, and applicable laws.
       </p>
       {SECTIONS.map((section) => (
         <div key={section.heading} className="mb-5">
-          <h2 className="text-lg font-semibold text-slate-900 mb-1">{section.heading}</h2>
-          <p className="text-slate-700">{section.body}</p>
+          <h2 className="mb-1 font-display text-lg font-semibold text-slate-900 dark:text-white">
+            {section.heading}
+          </h2>
+          <p className="text-slate-700 dark:text-slate-300">{section.body}</p>
         </div>
       ))}
     </div>
