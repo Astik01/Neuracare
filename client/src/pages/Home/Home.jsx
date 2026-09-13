@@ -74,29 +74,36 @@ export default function Home() {
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white dark:from-slate-900 dark:via-slate-900 dark:to-slate-900">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
-          <div className="animate-fade-up">
-            <p className="mb-4 inline-flex items-center rounded-full bg-brand-100 px-3 py-1 text-sm font-medium text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
+      <section className="relative isolate flex min-h-[560px] items-center overflow-hidden sm:min-h-[640px]">
+        <img
+          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&h=1080&fit=crop"
+          alt="Doctor reviewing a patient's chart on a tablet during a telehealth consultation"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/30" />
+
+        <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+          <div className="max-w-xl animate-fade-up">
+            <p className="mb-4 inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-sm font-medium text-white backdrop-blur">
               Trusted virtual care
             </p>
-            <h1 className="font-display text-4xl font-bold leading-tight text-slate-900 dark:text-white sm:text-5xl">
+            <h1 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
               Your health, understood faster.
             </h1>
-            <p className="mt-5 max-w-lg text-lg text-slate-600 dark:text-slate-300">
+            <p className="mt-5 max-w-lg text-lg text-slate-100">
               Check your symptoms, find the right doctor, and book an appointment in minutes —
               all in one calm, uncluttered place.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 to="/symptom-checker"
-                className="rounded-full bg-brand-700 px-6 py-3 font-medium text-white shadow-soft transition hover:bg-brand-800"
+                className="rounded-full bg-brand-500 px-6 py-3 font-medium text-white shadow-soft transition hover:bg-brand-600"
               >
                 Check Symptoms
               </Link>
               <Link
                 to="/find-doctors"
-                className="rounded-full border border-brand-700 px-6 py-3 font-medium text-brand-700 transition hover:bg-brand-50 dark:hover:bg-slate-800"
+                className="rounded-full border border-white/70 px-6 py-3 font-medium text-white transition hover:bg-white/10"
               >
                 Find a Doctor
               </Link>
@@ -106,46 +113,34 @@ export default function Home() {
               {TRUST_STATS.map((stat) => (
                 <div key={stat.label}>
                   <dt className="sr-only">{stat.label}</dt>
-                  <dd className="font-display text-2xl font-bold text-slate-900 dark:text-white">
-                    {stat.value}
-                  </dd>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+                  <dd className="font-display text-2xl font-bold text-white">{stat.value}</dd>
+                  <p className="text-sm text-slate-200">{stat.label}</p>
                 </div>
               ))}
             </dl>
           </div>
+        </div>
 
-          <div className="relative">
-            <div
-              ref={tilt.ref}
-              onMouseMove={tilt.onMouseMove}
-              onMouseLeave={tilt.onMouseLeave}
-              className="relative rounded-3xl shadow-glow transition-transform duration-200 ease-out will-change-transform"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=1000&fit=crop"
-                alt="Doctor reviewing a patient's chart on a tablet during a telehealth consultation"
-                className="h-full w-full rounded-3xl object-cover"
-              />
-            </div>
+        <div
+          ref={tilt.ref}
+          onMouseMove={tilt.onMouseMove}
+          onMouseLeave={tilt.onMouseLeave}
+          className="absolute bottom-8 left-4 hidden animate-float rounded-2xl bg-white p-4 shadow-soft transition-transform duration-200 ease-out will-change-transform dark:bg-slate-800 sm:left-6 sm:block"
+        >
+          <p className="text-xs text-slate-500 dark:text-slate-400">Symptom match</p>
+          <p className="font-display text-lg font-bold text-brand-700 dark:text-brand-400">
+            96% confidence
+          </p>
+        </div>
 
-            <div className="absolute -left-6 top-8 hidden animate-float rounded-2xl bg-white p-4 shadow-soft dark:bg-slate-800 sm:block">
-              <p className="text-xs text-slate-500 dark:text-slate-400">Symptom match</p>
-              <p className="font-display text-lg font-bold text-brand-700 dark:text-brand-400">
-                96% confidence
-              </p>
-            </div>
-
-            <div
-              className="absolute -bottom-6 -right-4 hidden animate-float rounded-2xl bg-white p-4 shadow-soft dark:bg-slate-800 sm:block"
-              style={{ animationDelay: '1.5s' }}
-            >
-              <p className="text-xs text-slate-500 dark:text-slate-400">Next available</p>
-              <p className="font-display text-lg font-bold text-slate-900 dark:text-white">
-                Today, 4:30 PM
-              </p>
-            </div>
-          </div>
+        <div
+          className="absolute right-4 top-8 hidden animate-float rounded-2xl bg-white p-4 shadow-soft dark:bg-slate-800 sm:right-6 sm:block"
+          style={{ animationDelay: '1.5s' }}
+        >
+          <p className="text-xs text-slate-500 dark:text-slate-400">Next available</p>
+          <p className="font-display text-lg font-bold text-slate-900 dark:text-white">
+            Today, 4:30 PM
+          </p>
         </div>
       </section>
 
