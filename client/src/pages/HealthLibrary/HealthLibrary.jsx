@@ -170,7 +170,7 @@ export default function HealthLibrary() {
           <button
             type="button"
             onClick={clearFilters}
-            className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+            className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
           >
             Clear Search
           </button>

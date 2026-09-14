@@ -139,7 +139,7 @@ export default function ChatWidget() {
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-label={isOpen ? 'Minimize chat' : 'Open chat'}
-        className="h-14 w-14 rounded-full bg-brand-700 text-white shadow-glow transition hover:bg-brand-800"
+        className="h-14 w-14 rounded-full bg-brand-700 text-white shadow-glow transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
       >
         💬
       </button>

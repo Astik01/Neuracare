@@ -131,7 +131,7 @@ export default function ArticleDetail() {
         </h3>
         <Link
           to={article.specialtyLink}
-          className="inline-block rounded-full bg-brand-700 px-4 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+          className="inline-block rounded-full bg-brand-700 px-4 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
         >
           {article.ctaLabel}
         </Link>
