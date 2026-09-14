@@ -5,6 +5,22 @@ import { apiFetch } from '../../api/client';
 
 jest.mock('../../api/client', () => ({ apiFetch: jest.fn() }));
 
+const SAMPLE_ARTICLE = {
+  slug: 'heart-disease',
+  title: 'Early Signs of Heart Disease',
+  excerpt: 'Know the warning symptoms and when to see a cardiologist.',
+  category: 'Heart Health',
+  image: 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=500&h=320&fit=crop',
+};
+
+function mockApi({ doctors = [], articles = [] } = {}) {
+  apiFetch.mockImplementation((path) => {
+    if (path === '/doctors') return Promise.resolve({ doctors });
+    if (path === '/articles') return Promise.resolve({ articles });
+    return Promise.reject(new Error(`Unexpected path: ${path}`));
+  });
+}
+
 function renderHome() {
   return render(
     <MemoryRouter>
@@ -19,7 +35,7 @@ beforeEach(() => {
 
 describe('Home', () => {
   it('renders the headline and both call-to-action links', () => {
-    apiFetch.mockResolvedValueOnce({ doctors: [] });
+    mockApi();
     renderHome();
 
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
@@ -32,7 +48,7 @@ describe('Home', () => {
   });
 
   it('renders the quick actions with functional links', () => {
-    apiFetch.mockResolvedValueOnce({ doctors: [] });
+    mockApi();
     renderHome();
 
     expect(screen.getByRole('link', { name: /my appointments/i })).toHaveAttribute(
@@ -46,7 +62,7 @@ describe('Home', () => {
   });
 
   it('renders all four how-it-works steps', () => {
-    apiFetch.mockResolvedValueOnce({ doctors: [] });
+    mockApi();
     renderHome();
 
     expect(screen.getByText('Describe symptoms')).toBeInTheDocument();
@@ -56,7 +72,7 @@ describe('Home', () => {
   });
 
   it('does not present any numbers as unlabeled real-world stats', () => {
-    apiFetch.mockResolvedValueOnce({ doctors: [] });
+    mockApi();
     renderHome();
 
     expect(screen.queryByText('10K+')).not.toBeInTheDocument();
@@ -64,7 +80,7 @@ describe('Home', () => {
   });
 
   it('shows featured doctors pulled from the API', async () => {
-    apiFetch.mockResolvedValueOnce({
+    mockApi({
       doctors: [{ _id: '1', name: 'Dr. Sarah Johnson', specialty: 'cardiology', fee: '$150' }],
     });
     renderHome();
@@ -72,11 +88,23 @@ describe('Home', () => {
     await waitFor(() => expect(screen.getByText('Dr. Sarah Johnson')).toBeInTheDocument());
   });
 
-  it('shows a health library preview with working links', () => {
-    apiFetch.mockResolvedValueOnce({ doctors: [] });
+  it('shows a health library preview pulled from the API with working links', async () => {
+    mockApi({ articles: [SAMPLE_ARTICLE] });
     renderHome();
 
-    const link = screen.getAllByRole('link', { name: /read article/i })[0];
-    expect(link).toHaveAttribute('href', expect.stringContaining('/health-library/'));
+    await waitFor(() =>
+      expect(screen.getByText('Early Signs of Heart Disease')).toBeInTheDocument(),
+    );
+    expect(apiFetch).toHaveBeenCalledWith('/articles');
+    const link = screen.getByRole('link', { name: /read article/i });
+    expect(link).toHaveAttribute('href', '/health-library/heart-disease');
+  });
+
+  it('does not show the health library section when there are no articles', async () => {
+    mockApi();
+    renderHome();
+
+    await waitFor(() => expect(apiFetch).toHaveBeenCalledWith('/articles'));
+    expect(screen.queryByText('Learn something new about your health')).not.toBeInTheDocument();
   });
 });

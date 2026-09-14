@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTilt } from '../../hooks/useTilt';
 import { apiFetch } from '../../api/client';
-import { articles, getArticleImage } from '../../data/articles';
+import { getArticleImage } from '../../data/articles';
 
 const TRUST_HIGHLIGHTS = ['Licensed specialists', 'Private & secure', 'Available anytime'];
 
@@ -185,7 +185,8 @@ export default function Home() {
   const tilt = useTilt();
   const [doctors, setDoctors] = useState([]);
   const [doctorsStatus, setDoctorsStatus] = useState('loading');
-  const previewArticles = articles.slice(0, 3);
+  const [previewArticles, setPreviewArticles] = useState([]);
+  const [articlesStatus, setArticlesStatus] = useState('loading');
 
   useEffect(() => {
     let cancelled = false;
@@ -198,6 +199,23 @@ export default function Home() {
       .catch(() => {
         if (cancelled) return;
         setDoctorsStatus('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    apiFetch('/articles')
+      .then((data) => {
+        if (cancelled) return;
+        setPreviewArticles((data.articles || []).slice(0, 3));
+        setArticlesStatus('success');
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setArticlesStatus('error');
       });
     return () => {
       cancelled = true;
@@ -435,50 +453,52 @@ export default function Home() {
         </section>
       )}
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-medium text-brand-700 dark:text-brand-400">Health Library</p>
-            <h2 className="mt-2 font-display text-3xl font-bold text-slate-900 dark:text-white">
-              Learn something new about your health
-            </h2>
-          </div>
-          <Link
-            to="/health-library"
-            className="text-sm font-medium text-brand-700 hover:underline dark:text-brand-400"
-          >
-            View all articles →
-          </Link>
-        </div>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {previewArticles.map((article) => (
-            <li
-              key={article.slug}
-              className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-700 dark:bg-slate-800"
+      {articlesStatus === 'success' && previewArticles.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium text-brand-700 dark:text-brand-400">Health Library</p>
+              <h2 className="mt-2 font-display text-3xl font-bold text-slate-900 dark:text-white">
+                Learn something new about your health
+              </h2>
+            </div>
+            <Link
+              to="/health-library"
+              className="text-sm font-medium text-brand-700 hover:underline dark:text-brand-400"
             >
-              <img
-                src={getArticleImage(article)}
-                alt=""
-                className="h-40 w-full object-cover"
-              />
-              <div className="flex flex-1 flex-col p-5">
-                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white">
-                  {article.title}
-                </h3>
-                <p className="mt-1 flex-1 text-sm text-slate-600 dark:text-slate-300">
-                  {article.excerpt}
-                </p>
-                <Link
-                  to={`/health-library/${article.slug}`}
-                  className="mt-4 text-sm font-medium text-brand-700 hover:underline dark:text-brand-400"
-                >
-                  Read article →
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
+              View all articles →
+            </Link>
+          </div>
+          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {previewArticles.map((article) => (
+              <li
+                key={article.slug}
+                className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-700 dark:bg-slate-800"
+              >
+                <img
+                  src={getArticleImage(article)}
+                  alt=""
+                  className="h-40 w-full object-cover"
+                />
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white">
+                    {article.title}
+                  </h3>
+                  <p className="mt-1 flex-1 text-sm text-slate-600 dark:text-slate-300">
+                    {article.excerpt}
+                  </p>
+                  <Link
+                    to={`/health-library/${article.slug}`}
+                    className="mt-4 text-sm font-medium text-brand-700 hover:underline dark:text-brand-400"
+                  >
+                    Read article →
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
         <div className="rounded-3xl bg-brand-700 px-8 py-12 text-center shadow-soft sm:px-16">
