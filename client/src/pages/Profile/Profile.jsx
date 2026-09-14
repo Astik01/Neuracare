@@ -248,7 +248,7 @@ export default function Profile() {
           <button
             type="submit"
             disabled={profileStatus === 'saving'}
-            className="rounded-lg bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60"
+            className="rounded-lg bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60 dark:bg-brand-600 dark:hover:bg-brand-500"
           >
             {profileStatus === 'saving' ? 'Saving…' : 'Save Changes'}
           </button>

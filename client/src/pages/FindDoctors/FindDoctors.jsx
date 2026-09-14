@@ -297,7 +297,7 @@ export default function FindDoctors() {
               <button
                 type="button"
                 onClick={() => setIsFilterDrawerOpen(false)}
-                className="flex-1 rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-medium text-white shadow-soft hover:bg-brand-800"
+                className="flex-1 rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-medium text-white shadow-soft hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
               >
                 Show results
               </button>
@@ -337,7 +337,7 @@ export default function FindDoctors() {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+                  className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
                 >
                   Clear Filters
                 </button>
@@ -383,7 +383,7 @@ export default function FindDoctors() {
                           </Link>
                           <Link
                             to={`/doctors/${doctor._id}`}
-                            className="rounded-lg bg-brand-700 px-3 py-1.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+                            className="rounded-lg bg-brand-700 px-3 py-1.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
                           >
                             Book Appointment
                           </Link>

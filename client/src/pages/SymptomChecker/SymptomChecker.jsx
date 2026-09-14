@@ -228,7 +228,7 @@ export default function SymptomChecker() {
             <button
               type="button"
               onClick={goToDetails}
-              className="mt-4 w-full rounded-lg bg-brand-700 px-6 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 sm:w-auto"
+              className="mt-4 w-full rounded-lg bg-brand-700 px-6 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500 sm:w-auto"
             >
               Continue
             </button>
@@ -281,7 +281,7 @@ export default function SymptomChecker() {
               <button
                 type="button"
                 onClick={handleAnalyze}
-                className="rounded-lg bg-brand-700 px-6 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800"
+                className="rounded-lg bg-brand-700 px-6 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
               >
                 Analyze Symptoms
               </button>

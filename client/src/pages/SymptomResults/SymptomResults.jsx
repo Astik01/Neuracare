@@ -199,7 +199,7 @@ export default function SymptomResults() {
               </Link>
               <Link
                 to={`/doctors/${recommendedDoctor._id}`}
-                className="rounded-lg bg-brand-700 px-4 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+                className="rounded-lg bg-brand-700 px-4 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
               >
                 Book Appointment
               </Link>

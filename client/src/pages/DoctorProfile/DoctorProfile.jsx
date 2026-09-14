@@ -298,7 +298,7 @@ export default function DoctorProfile() {
                 type="button"
                 onClick={handleConfirm}
                 disabled={isBooking}
-                className="w-full rounded-lg bg-brand-700 px-4 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60"
+                className="w-full rounded-lg bg-brand-700 px-4 py-2.5 font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60 dark:bg-brand-600 dark:hover:bg-brand-500"
               >
                 {isBooking ? 'Confirming your appointment…' : 'Confirm Appointment'}
               </button>

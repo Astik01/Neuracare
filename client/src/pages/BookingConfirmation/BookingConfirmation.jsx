@@ -77,7 +77,7 @@ export default function BookingConfirmation() {
       <div className="flex flex-col gap-3">
         <Link
           to="/my-bookings"
-          className="rounded-full bg-brand-700 px-6 py-3 font-medium text-white shadow-soft transition hover:bg-brand-800"
+          className="rounded-full bg-brand-700 px-6 py-3 font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
         >
           View My Bookings
         </Link>

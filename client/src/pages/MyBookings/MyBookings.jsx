@@ -177,7 +177,7 @@ export default function MyBookings() {
           </p>
           <Link
             to="/find-doctors"
-            className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+            className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
           >
             Find a Doctor
           </Link>
@@ -222,7 +222,7 @@ export default function MyBookings() {
           {activeTab === 'upcoming' && (
             <Link
               to="/find-doctors"
-              className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800"
+              className="rounded-full bg-brand-700 px-5 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
             >
               Find a Doctor
             </Link>
@@ -404,7 +404,7 @@ export default function MyBookings() {
                 type="button"
                 onClick={handleConfirmReschedule}
                 disabled={!rescheduleSlot || isRescheduling}
-                className="flex-1 rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60"
+                className="flex-1 rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 disabled:opacity-60 dark:bg-brand-600 dark:hover:bg-brand-500"
               >
                 {isRescheduling ? 'Saving…' : 'Confirm New Time'}
               </button>
