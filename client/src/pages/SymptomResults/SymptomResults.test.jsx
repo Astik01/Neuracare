@@ -44,6 +44,17 @@ describe('SymptomResults', () => {
     expect(screen.getByText('Symptom checker')).toBeInTheDocument();
   });
 
+  it('shows a skeleton placeholder for the recommended specialist while loading', () => {
+    apiFetch.mockResolvedValueOnce(BASE_DOCTORS);
+    renderResults({
+      results: [{ condition: 'migraine', probability: 82, urgency: 'high', symptoms: ['headache'] }],
+      symptoms: ['headache'],
+    });
+
+    expect(screen.getByText('Recommended specialist')).toBeInTheDocument();
+    expect(document.querySelectorAll('.animate-pulse').length).toBeGreaterThan(0);
+  });
+
   it('shows possible matches with matching symptoms and the disclaimer', async () => {
     apiFetch.mockResolvedValueOnce(BASE_DOCTORS);
     renderResults({

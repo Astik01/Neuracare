@@ -79,6 +79,13 @@ describe('Home', () => {
     expect(screen.queryByText('500+')).not.toBeInTheDocument();
   });
 
+  it('shows skeleton placeholders for the preview sections while loading', () => {
+    mockApi();
+    renderHome();
+
+    expect(document.querySelectorAll('.animate-pulse').length).toBeGreaterThan(0);
+  });
+
   it('shows featured doctors pulled from the API', async () => {
     mockApi({
       doctors: [{ _id: '1', name: 'Dr. Sarah Johnson', specialty: 'cardiology', fee: '$150' }],

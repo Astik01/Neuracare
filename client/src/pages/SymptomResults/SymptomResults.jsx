@@ -38,6 +38,7 @@ function findRecommendedDoctor(doctors, specialtyKeywords) {
 export default function SymptomResults() {
   const location = useLocation();
   const [doctors, setDoctors] = useState([]);
+  const [doctorsStatus, setDoctorsStatus] = useState('loading');
 
   useEffect(() => {
     let cancelled = false;
@@ -45,10 +46,12 @@ export default function SymptomResults() {
       .then((data) => {
         if (cancelled) return;
         setDoctors(data.doctors || []);
+        setDoctorsStatus('success');
       })
       .catch(() => {
         if (cancelled) return;
         setDoctors([]);
+        setDoctorsStatus('error');
       });
     return () => {
       cancelled = true;
@@ -163,7 +166,23 @@ export default function SymptomResults() {
         })}
       </ul>
 
-      {recommendedDoctor && (
+      {doctorsStatus === 'loading' && (
+        <>
+          <h2 className="mt-10 font-display text-lg font-semibold text-slate-900 dark:text-white">
+            Recommended specialist
+          </h2>
+          <div className="mt-4 flex animate-pulse flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-700 dark:bg-slate-800 sm:flex-row sm:items-center">
+            <div className="h-20 w-20 flex-shrink-0 rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="flex-1 space-y-2">
+              <div className="h-4 w-1/3 rounded bg-slate-200 dark:bg-slate-700" />
+              <div className="h-3 w-1/4 rounded bg-slate-200 dark:bg-slate-700" />
+              <div className="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700" />
+            </div>
+          </div>
+        </>
+      )}
+
+      {doctorsStatus === 'success' && recommendedDoctor && (
         <>
           <h2 className="mt-10 font-display text-lg font-semibold text-slate-900 dark:text-white">
             Recommended specialist

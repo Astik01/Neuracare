@@ -170,6 +170,19 @@ const BENEFITS = [
 const FALLBACK_DOCTOR_PHOTO =
   'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&h=300&fit=crop';
 
+function PreviewCardSkeleton() {
+  return (
+    <li className="animate-pulse overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card dark:border-slate-700 dark:bg-slate-900">
+      <div className="h-40 w-full bg-slate-200 dark:bg-slate-700" />
+      <div className="space-y-3 p-5">
+        <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-700" />
+        <div className="h-3 w-full rounded bg-slate-200 dark:bg-slate-700" />
+        <div className="h-3 w-1/3 rounded bg-slate-200 dark:bg-slate-700" />
+      </div>
+    </li>
+  );
+}
+
 function StarRating({ rating = 0 }) {
   return (
     <span className="inline-flex items-center gap-1 text-sm text-amber-500" aria-hidden="true">
@@ -394,7 +407,7 @@ export default function Home() {
         </div>
       </section>
 
-      {doctorsStatus === 'success' && doctors.length > 0 && (
+      {(doctorsStatus === 'loading' || (doctorsStatus === 'success' && doctors.length > 0)) && (
         <section className="bg-slate-50 py-16 dark:bg-slate-800 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="flex flex-wrap items-end justify-between gap-4">
@@ -414,6 +427,8 @@ export default function Home() {
               </Link>
             </div>
             <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {doctorsStatus === 'loading' &&
+                [1, 2, 3].map((index) => <PreviewCardSkeleton key={index} />)}
               {doctors.map((doctor) => (
                 <li
                   key={doctor._id}
@@ -453,7 +468,7 @@ export default function Home() {
         </section>
       )}
 
-      {articlesStatus === 'success' && previewArticles.length > 0 && (
+      {(articlesStatus === 'loading' || (articlesStatus === 'success' && previewArticles.length > 0)) && (
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -470,6 +485,8 @@ export default function Home() {
             </Link>
           </div>
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {articlesStatus === 'loading' &&
+              [1, 2, 3].map((index) => <PreviewCardSkeleton key={index} />)}
             {previewArticles.map((article) => (
               <li
                 key={article.slug}
