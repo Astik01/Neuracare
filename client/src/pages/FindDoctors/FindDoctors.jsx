@@ -265,7 +265,7 @@ export default function FindDoctors() {
             role="dialog"
             aria-modal="true"
             aria-label="Filter doctors"
-            className="relative z-10 max-h-[85vh] w-full overflow-y-auto rounded-t-2xl bg-white p-5 shadow-glow dark:bg-slate-800"
+            className="relative z-10 max-h-[85vh] w-full animate-fade-up overflow-y-auto rounded-t-2xl bg-white p-5 shadow-glow dark:bg-slate-800"
           >
             <div className="flex items-center justify-between">
               <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white">

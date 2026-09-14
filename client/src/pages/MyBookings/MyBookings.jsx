@@ -369,7 +369,7 @@ export default function MyBookings() {
             role="dialog"
             aria-modal="true"
             aria-label="Reschedule appointment"
-            className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-glow dark:bg-slate-800"
+            className="relative z-10 w-full max-w-md animate-fade-up rounded-2xl bg-white p-6 shadow-glow dark:bg-slate-800"
           >
             <div className="flex items-center justify-between">
               <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white">
