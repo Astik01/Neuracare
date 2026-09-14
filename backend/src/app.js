@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Backend running!' });
 });
 
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/contacts', contactsRoutes);
