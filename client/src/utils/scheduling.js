@@ -13,6 +13,10 @@ function labelForOffset(offset, date) {
   return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
+export function getTodayISO() {
+  return formatDateISO(new Date());
+}
+
 export function generateUpcomingSlots(daysCount = 6, alreadyTaken = []) {
   const takenSet = new Set(alreadyTaken.map(({ date, time }) => `${date}|${time}`));
   const days = [];

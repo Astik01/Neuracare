@@ -3,7 +3,14 @@ import {
   buildAppointmentICS,
   formatDisplayDate,
   generateUpcomingSlots,
+  getTodayISO,
 } from './scheduling';
+
+describe('getTodayISO', () => {
+  it('returns an ISO-formatted date string', () => {
+    expect(getTodayISO()).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+});
 
 describe('generateUpcomingSlots', () => {
   it('labels the first two days as Today and Tomorrow', () => {
