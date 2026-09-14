@@ -145,7 +145,7 @@ export default function About() {
       </section>
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <dl className="-mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <dl className="mt-6 grid grid-cols-2 gap-4 sm:-mt-10 sm:grid-cols-4">
           {STATS.map((stat) => (
             <div
               key={stat.label}

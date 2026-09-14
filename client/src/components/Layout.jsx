@@ -251,7 +251,7 @@ export default function Layout() {
             Neuracare
           </Link>
 
-          <ul className="hidden items-center gap-6 md:flex">
+          <ul className="hidden items-center gap-6 lg:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.to}>
                 <DesktopNavLink {...link} />
@@ -296,7 +296,7 @@ export default function Layout() {
               onClick={() => setIsMobileMenuOpen((open) => !open)}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-              className="rounded-full p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 md:hidden"
+              className="rounded-full p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
             >
               {isMobileMenuOpen ? '✕' : '☰'}
             </button>
@@ -304,7 +304,7 @@ export default function Layout() {
         </nav>
 
         {isMobileMenuOpen && (
-          <div className="border-t border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900 md:hidden">
+          <div className="border-t border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900 lg:hidden">
             {isAuthenticated && (
               <div className="mb-3 flex items-center gap-3 rounded-lg bg-slate-50 px-3 py-2.5 dark:bg-slate-800">
                 <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-brand-100 text-sm font-semibold text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
