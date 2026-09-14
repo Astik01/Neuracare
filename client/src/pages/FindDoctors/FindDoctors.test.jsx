@@ -122,6 +122,20 @@ describe('FindDoctors', () => {
     expect(within(dialog).getByLabelText(/specialty/i)).toBeInTheDocument();
   });
 
+  it('closes the mobile filter drawer on Escape', async () => {
+    apiFetch.mockResolvedValueOnce({ doctors: DOCTORS });
+    const user = userEvent.setup();
+    renderPage();
+
+    await waitFor(() => expect(screen.getByText('Dr. Sarah Johnson')).toBeInTheDocument());
+    await user.click(screen.getByRole('button', { name: /^filters$/i }));
+    expect(screen.getByRole('dialog', { name: /filter doctors/i })).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByRole('dialog', { name: /filter doctors/i })).not.toBeInTheDocument();
+  });
+
   it('links each card to view profile and book appointment', async () => {
     apiFetch.mockResolvedValueOnce({ doctors: DOCTORS });
     renderPage();

@@ -259,4 +259,28 @@ describe('MyBookings', () => {
 
     expect(within(dialog).getByRole('alert')).toHaveTextContent(/no longer available/i);
   });
+
+  it('closes the reschedule modal on Escape', async () => {
+    apiFetch.mockResolvedValueOnce({
+      bookings: [
+        {
+          _id: 'b1',
+          date: FUTURE_DATE,
+          time: '09:00 AM',
+          status: 'confirmed',
+          doctor: { _id: 'd1', name: 'Dr. Sarah Johnson' },
+        },
+      ],
+    });
+    const user = userEvent.setup();
+    renderPage();
+
+    await waitFor(() => expect(screen.getByText('Dr. Sarah Johnson')).toBeInTheDocument());
+    await user.click(screen.getByRole('button', { name: /reschedule/i }));
+    expect(screen.getByRole('dialog', { name: /reschedule appointment/i })).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByRole('dialog', { name: /reschedule appointment/i })).not.toBeInTheDocument();
+  });
 });

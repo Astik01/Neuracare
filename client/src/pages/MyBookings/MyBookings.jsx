@@ -4,6 +4,7 @@ import { apiFetch } from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
 import ErrorState from '../../components/ErrorState';
 import SlotPicker from '../../components/SlotPicker';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 import { buildAppointmentDate, formatDisplayDate, getTodayISO } from '../../utils/scheduling';
 
 const TABS = [
@@ -56,6 +57,8 @@ export default function MyBookings() {
   const [rescheduleSlot, setRescheduleSlot] = useState(null);
   const [isRescheduling, setIsRescheduling] = useState(false);
   const [rescheduleError, setRescheduleError] = useState(null);
+
+  useEscapeKey(Boolean(rescheduleBookingId), closeReschedule);
 
   useEffect(() => {
     let cancelled = false;

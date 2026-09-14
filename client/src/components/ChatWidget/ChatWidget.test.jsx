@@ -113,4 +113,18 @@ describe('ChatWidget', () => {
 
     expect(screen.queryByText(/neuracare assistant/i)).not.toBeInTheDocument();
   });
+
+  it('closes on Escape and returns focus to the toggle button', async () => {
+    const user = userEvent.setup();
+    renderWidget();
+
+    const toggleButton = screen.getByRole('button', { name: /open chat/i });
+    await user.click(toggleButton);
+    expect(screen.getByText(/neuracare assistant/i)).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByText(/neuracare assistant/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /open chat/i })).toHaveFocus();
+  });
 });

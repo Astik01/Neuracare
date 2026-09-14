@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getBotReply } from './botReply';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 const QUICK_ACTIONS = [
   { label: 'Find a Doctor', to: '/find-doctors' },
@@ -18,6 +19,14 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState([GREETING]);
   const [input, setInput] = useState('');
   const navigate = useNavigate();
+  const toggleButtonRef = useRef(null);
+
+  function closeChat() {
+    setIsOpen(false);
+    toggleButtonRef.current?.focus();
+  }
+
+  useEscapeKey(isOpen, closeChat);
 
   function send(text) {
     const trimmed = text.trim();
@@ -47,7 +56,7 @@ export default function ChatWidget() {
             </div>
             <button
               type="button"
-              onClick={() => setIsOpen(false)}
+              onClick={closeChat}
               aria-label="Close chat"
               className="flex-shrink-0 text-brand-100 hover:text-white"
             >
@@ -135,11 +144,12 @@ export default function ChatWidget() {
         </div>
       )}
       <button
+        ref={toggleButtonRef}
         type="button"
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-label={isOpen ? 'Minimize chat' : 'Open chat'}
-        className="h-14 w-14 rounded-full bg-brand-700 text-white shadow-glow transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
+        className="h-14 w-14 rounded-full bg-brand-700 text-white shadow-glow transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
       >
         💬
       </button>

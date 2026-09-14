@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { apiFetch } from '../../api/client';
 import ErrorState from '../../components/ErrorState';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 import {
   EXPERIENCE_RANGES,
   FEE_RANGES,
@@ -137,6 +138,8 @@ export default function FindDoctors() {
   const [sortBy, setSortBy] = useState('recommended');
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+
+  useEscapeKey(isFilterDrawerOpen, () => setIsFilterDrawerOpen(false));
 
   useEffect(() => {
     let cancelled = false;
