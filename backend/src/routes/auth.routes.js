@@ -7,6 +7,7 @@ const router = express.Router();
 
 const INVALID_CREDENTIALS_MESSAGE = 'Invalid email or password';
 const MIN_PASSWORD_LENGTH = 8;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function toPublicUser(user) {
   return { id: user._id, name: user.name, email: user.email };
@@ -18,6 +19,10 @@ router.post('/signup', async (req, res) => {
 
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email and password are required' });
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
     }
 
     if (password.length < MIN_PASSWORD_LENGTH) {

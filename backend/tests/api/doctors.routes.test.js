@@ -44,6 +44,14 @@ describe('GET /api/doctors', () => {
     expect(res.status).toBe(200);
     expect(res.body.count).toBe(0);
   });
+
+  it('returns 400 when specialty is repeated into an array instead of a string', async () => {
+    await seedDoctors();
+
+    const res = await request(app).get('/api/doctors?specialty=cardiology&specialty=dermatology');
+
+    expect(res.status).toBe(400);
+  });
 });
 
 describe('GET /api/doctors/:id', () => {

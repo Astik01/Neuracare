@@ -7,6 +7,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const { specialty } = req.query;
+
+    if (specialty !== undefined && typeof specialty !== 'string') {
+      return res.status(400).json({ error: 'specialty must be a string' });
+    }
+
     const filter = specialty ? { specialty: specialty.toLowerCase() } : {};
     const doctors = await Doctor.find(filter).sort({ rating: -1 });
     res.json({ count: doctors.length, doctors });

@@ -43,4 +43,12 @@ describe('POST /api/auth/signup', () => {
 
     expect(res.status).toBe(400);
   });
+
+  it('returns 400 for an invalid email format', async () => {
+    const payload = generate_user({ email: 'not-an-email' });
+
+    const res = await request(app).post('/api/auth/signup').send(payload);
+
+    expect(res.status).toBe(400);
+  });
 });
