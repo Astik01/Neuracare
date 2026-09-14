@@ -1,10 +1,3 @@
-const STATS = [
-  { label: 'Founded', value: '2019' },
-  { label: 'Countries', value: '50+' },
-  { label: 'Providers', value: '500+' },
-  { label: 'Patients', value: '10K+' },
-];
-
 const VALUES = [
   {
     title: 'Accessibility',
@@ -144,23 +137,6 @@ export default function About() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <dl className="mt-6 grid grid-cols-2 gap-4 sm:-mt-10 sm:grid-cols-4">
-          {STATS.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-card dark:border-slate-700 dark:bg-slate-800"
-            >
-              <dt className="sr-only">{stat.label}</dt>
-              <dd className="font-display text-2xl font-bold text-brand-700 dark:text-brand-400">
-                {stat.value}
-              </dd>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
-            </div>
-          ))}
-        </dl>
-      </div>
-
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium text-brand-700 dark:text-brand-400">Our Values</p>
@@ -226,7 +202,7 @@ export default function About() {
             Meet the team
           </h2>
           <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
-            Placeholder team profiles for this demo build — swap in real photos and bios when
+            Placeholder team profiles for this demo build, swap in real photos and bios when
             available.
           </p>
         </div>
