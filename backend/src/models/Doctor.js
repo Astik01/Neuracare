@@ -11,6 +11,9 @@ const doctorSchema = new mongoose.Schema({
   avatar: { type: String, trim: true, default: 'fas fa-user-md' },
   photo: { type: String, trim: true },
   bio: { type: String, trim: true },
+  education: { type: [String], default: [] },
+  languages: { type: [String], default: [] },
+  specializations: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now },
 });
 

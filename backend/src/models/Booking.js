@@ -6,6 +6,7 @@ const bookingSchema = new mongoose.Schema({
   date: { type: String, required: true, trim: true },
   time: { type: String, required: true, trim: true },
   reason: { type: String, trim: true },
+  consultationType: { type: String, enum: ['in-person', 'video'], default: 'in-person' },
   status: { type: String, enum: ['confirmed', 'cancelled'], default: 'confirmed' },
   createdAt: { type: Date, default: Date.now },
 });

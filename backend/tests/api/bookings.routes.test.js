@@ -77,6 +77,71 @@ describe('POST /api/bookings', () => {
 
     expect(res.status).toBe(404);
   });
+
+  it('returns 400 for an invalid consultation type', async () => {
+    const token = await signup();
+    const doctor = await seedDoctor();
+
+    const res = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send(generate_booking_payload(doctor._id, { consultationType: 'holographic' }));
+
+    expect(res.status).toBe(400);
+  });
+
+  it('defaults consultationType to in-person', async () => {
+    const token = await signup();
+    const doctor = await seedDoctor();
+
+    const res = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send(generate_booking_payload(doctor._id));
+
+    expect(res.body.booking.consultationType).toBe('in-person');
+  });
+
+  it('returns 409 when the same doctor, date and time is already confirmed', async () => {
+    const doctor = await seedDoctor();
+    const tokenA = await signup();
+    const tokenB = await signup();
+    const payload = generate_booking_payload(doctor._id);
+
+    await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send(payload);
+
+    const res = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenB}`)
+      .send(payload);
+
+    expect(res.status).toBe(409);
+  });
+
+  it('allows booking a slot that was previously cancelled', async () => {
+    const doctor = await seedDoctor();
+    const tokenA = await signup();
+    const tokenB = await signup();
+    const payload = generate_booking_payload(doctor._id);
+
+    const first = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send(payload);
+    await request(app)
+      .delete(`/api/bookings/${first.body.booking._id}`)
+      .set('Authorization', `Bearer ${tokenA}`);
+
+    const res = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenB}`)
+      .send(payload);
+
+    expect(res.status).toBe(201);
+  });
 });
 
 describe('GET /api/bookings', () => {
@@ -155,5 +220,128 @@ describe('DELETE /api/bookings/:id', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.status).toBe(400);
+  });
+});
+
+describe('PATCH /api/bookings/:id/reschedule', () => {
+  it('reschedules a booking owned by the caller', async () => {
+    const token = await signup();
+    const doctor = await seedDoctor();
+    const created = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send(generate_booking_payload(doctor._id));
+
+    const res = await request(app)
+      .patch(`/api/bookings/${created.body.booking._id}/reschedule`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ date: '2026-02-02', time: '11:00' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.booking.date).toBe('2026-02-02');
+    expect(res.body.booking.time).toBe('11:00');
+  });
+
+  it('returns 400 when date or time is missing', async () => {
+    const token = await signup();
+    const doctor = await seedDoctor();
+    const created = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send(generate_booking_payload(doctor._id));
+
+    const res = await request(app)
+      .patch(`/api/bookings/${created.body.booking._id}/reschedule`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ date: '2026-02-02' });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("returns 403 when rescheduling another user's booking", async () => {
+    const doctor = await seedDoctor();
+    const tokenA = await signup();
+    const tokenB = await signup();
+    const created = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send(generate_booking_payload(doctor._id));
+
+    const res = await request(app)
+      .patch(`/api/bookings/${created.body.booking._id}/reschedule`)
+      .set('Authorization', `Bearer ${tokenB}`)
+      .send({ date: '2026-02-02', time: '11:00' });
+
+    expect(res.status).toBe(403);
+  });
+
+  it('returns 404 for a booking that does not exist', async () => {
+    const token = await signup();
+    const missingId = new mongoose.Types.ObjectId();
+
+    const res = await request(app)
+      .patch(`/api/bookings/${missingId}/reschedule`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ date: '2026-02-02', time: '11:00' });
+
+    expect(res.status).toBe(404);
+  });
+
+  it('returns 400 when rescheduling a cancelled booking', async () => {
+    const token = await signup();
+    const doctor = await seedDoctor();
+    const created = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send(generate_booking_payload(doctor._id));
+    await request(app)
+      .delete(`/api/bookings/${created.body.booking._id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    const res = await request(app)
+      .patch(`/api/bookings/${created.body.booking._id}/reschedule`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ date: '2026-02-02', time: '11:00' });
+
+    expect(res.status).toBe(400);
+  });
+
+  it('returns 409 when the new slot is already confirmed for another booking', async () => {
+    const doctor = await seedDoctor();
+    const tokenA = await signup();
+    const tokenB = await signup();
+
+    await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send(generate_booking_payload(doctor._id, { date: '2026-02-02', time: '11:00' }));
+
+    const secondCreated = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tokenB}`)
+      .send(generate_booking_payload(doctor._id, { date: '2026-03-03', time: '09:00' }));
+
+    const res = await request(app)
+      .patch(`/api/bookings/${secondCreated.body.booking._id}/reschedule`)
+      .set('Authorization', `Bearer ${tokenB}`)
+      .send({ date: '2026-02-02', time: '11:00' });
+
+    expect(res.status).toBe(409);
+  });
+
+  it('allows rescheduling a booking to its own current slot', async () => {
+    const token = await signup();
+    const doctor = await seedDoctor();
+    const created = await request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send(generate_booking_payload(doctor._id, { date: '2026-02-02', time: '11:00' }));
+
+    const res = await request(app)
+      .patch(`/api/bookings/${created.body.booking._id}/reschedule`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ date: '2026-02-02', time: '11:00' });
+
+    expect(res.status).toBe(200);
   });
 });
