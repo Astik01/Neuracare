@@ -306,7 +306,7 @@ export default function SymptomChecker() {
                           ? 'bg-brand-600 text-white'
                           : isCurrent
                             ? 'animate-pulse bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'
-                            : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+                            : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
                       }`}
                     >
                       {isDone ? '✓' : index + 1}
@@ -315,7 +315,7 @@ export default function SymptomChecker() {
                       className={`text-sm ${
                         isDone || isCurrent
                           ? 'text-slate-900 dark:text-white'
-                          : 'text-slate-400 dark:text-slate-500'
+                          : 'text-slate-500 dark:text-slate-400'
                       }`}
                     >
                       {label}

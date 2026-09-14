@@ -218,7 +218,7 @@ export default function Profile() {
               disabled
               className="mt-1 w-full cursor-not-allowed rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"
             />
-            <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               Contact support to change your email address.
             </p>
           </div>
@@ -352,7 +352,7 @@ export default function Profile() {
                 Email me about my appointments
               </span>
             </label>
-            <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               This preference is saved to your account, but Neuracare doesn't send any emails yet
               in this demo — nothing will actually be delivered.
             </p>

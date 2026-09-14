@@ -91,7 +91,7 @@ export default function ChatWidget() {
               ))}
             </div>
 
-            <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+            <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Quick actions
             </p>
             <div className="flex flex-wrap gap-1.5">

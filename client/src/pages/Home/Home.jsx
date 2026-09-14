@@ -260,7 +260,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 to="/symptom-checker"
-                className="rounded-full bg-brand-500 px-6 py-3 font-medium text-white shadow-soft transition hover:bg-brand-600"
+                className="rounded-full bg-brand-600 px-6 py-3 font-medium text-white shadow-soft transition hover:bg-brand-700"
               >
                 Check Symptoms
               </Link>

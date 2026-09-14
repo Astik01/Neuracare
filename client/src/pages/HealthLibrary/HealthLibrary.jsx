@@ -30,7 +30,7 @@ function ArticleCard({ article }) {
           <span className="text-xs font-medium uppercase tracking-wide text-brand-700 dark:text-brand-400">
             {article.category}
           </span>
-          <span className="text-xs text-slate-400 dark:text-slate-500">
+          <span className="text-xs text-slate-500 dark:text-slate-400">
             {estimateReadingTime(article)}
           </span>
         </div>
@@ -194,7 +194,7 @@ export default function HealthLibrary() {
                     <span className="text-xs font-medium uppercase tracking-wide text-brand-700 dark:text-brand-400">
                       {featured.category}
                     </span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       {estimateReadingTime(featured)}
                     </span>
                   </div>
