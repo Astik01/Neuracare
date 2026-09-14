@@ -222,7 +222,7 @@ export default function DoctorProfile() {
           )}
         </div>
 
-        <div className="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-700 dark:bg-slate-800">
+        <div className="h-fit min-w-0 rounded-2xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-700 dark:bg-slate-800">
           <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white">
             Book an appointment
           </h2>

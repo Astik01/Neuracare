@@ -11,7 +11,7 @@ export default function SlotPicker({ daysCount = 6, alreadyTaken = [], selected,
   const activeDay = days[activeDayIndex];
 
   return (
-    <div>
+    <div className="min-w-0">
       <div
         role="tablist"
         aria-label="Choose a day"
