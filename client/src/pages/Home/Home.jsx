@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTilt } from '../../hooks/useTilt';
 import { apiFetch } from '../../api/client';
-import { articles } from '../../data/articles';
+import { articles, getArticleImage } from '../../data/articles';
 
 const TRUST_HIGHLIGHTS = ['Licensed specialists', 'Private & secure', 'Available anytime'];
 
@@ -167,13 +167,6 @@ const BENEFITS = [
   },
 ];
 
-const ARTICLE_IMAGES = {
-  'heart-disease': 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=500&h=320&fit=crop',
-  dermatologist: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=500&h=320&fit=crop',
-  migraines: 'https://images.unsplash.com/photo-1541199249251-f713e6145474?w=500&h=320&fit=crop',
-};
-const FALLBACK_ARTICLE_IMAGE =
-  'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=320&fit=crop';
 const FALLBACK_DOCTOR_PHOTO =
   'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&h=300&fit=crop';
 
@@ -464,7 +457,7 @@ export default function Home() {
               className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-700 dark:bg-slate-800"
             >
               <img
-                src={ARTICLE_IMAGES[article.slug] || FALLBACK_ARTICLE_IMAGE}
+                src={getArticleImage(article)}
                 alt=""
                 className="h-40 w-full object-cover"
               />

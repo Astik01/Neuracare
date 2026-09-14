@@ -1,10 +1,25 @@
+export const CATEGORIES = [
+  'Heart Health',
+  'Nutrition',
+  'Sleep',
+  'Mental Health',
+  'Skin',
+  'Fitness',
+  'General Health',
+];
+
+const FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=320&fit=crop';
+
 export const articles = [
   {
     slug: 'heart-disease',
     title: 'Early Signs of Heart Disease',
     excerpt: 'Know the warning symptoms and when to see a cardiologist.',
+    category: 'Heart Health',
     author: 'Dr. Sarah Johnson, Cardiologist',
     date: 'Jan 15, 2026',
+    image: 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors?specialty=cardiology',
     ctaLabel: 'Book a Cardiologist',
     paragraphs: [
@@ -25,8 +40,10 @@ export const articles = [
     slug: 'dermatologist',
     title: 'When to See a Dermatologist',
     excerpt: 'Skin changes, rashes, and moles: when to get them checked.',
+    category: 'Skin',
     author: 'Dr. Michael Chen, Dermatologist',
     date: 'Jan 10, 2026',
+    image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors?specialty=dermatology',
     ctaLabel: 'Book a Dermatologist',
     paragraphs: [
@@ -47,8 +64,10 @@ export const articles = [
     slug: 'migraines',
     title: 'Understanding Migraines',
     excerpt: 'Triggers, types, and when to seek specialist care.',
+    category: 'General Health',
     author: 'Dr. Emily Rodriguez, Neurologist',
     date: 'Jan 5, 2026',
+    image: 'https://images.unsplash.com/photo-1541199249251-f713e6145474?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -69,8 +88,10 @@ export const articles = [
     slug: 'sleep-health',
     title: 'Why Quality Sleep Matters for Your Health',
     excerpt: 'How sleep affects your heart, mood, and immune system — and simple habits that help.',
+    category: 'Sleep',
     author: 'Dr. Lena Ortiz, Sleep Medicine',
     date: 'Feb 2, 2026',
+    image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -91,8 +112,10 @@ export const articles = [
     slug: 'nutrition-basics',
     title: 'Building a Balanced Plate: Nutrition Basics',
     excerpt: 'A simple framework for balanced meals, portion sizes, and reading nutrition labels.',
+    category: 'Nutrition',
     author: 'Dr. Aisha Bello, Clinical Nutrition',
     date: 'Jan 28, 2026',
+    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -113,8 +136,10 @@ export const articles = [
     slug: 'managing-anxiety',
     title: 'Understanding and Managing Anxiety',
     excerpt: 'Recognizing common symptoms and evidence-based strategies that can help.',
+    category: 'Mental Health',
     author: 'Dr. Marcus Webb, Psychiatry',
     date: 'Jan 22, 2026',
+    image: 'https://images.unsplash.com/photo-1493836512294-502baa1986e2?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -135,8 +160,10 @@ export const articles = [
     slug: 'diabetes-management',
     title: 'Everyday Diabetes Management Tips',
     excerpt: 'Blood sugar monitoring, diet, and lifestyle habits for living well with diabetes.',
+    category: 'General Health',
     author: 'Dr. Priya Nair, Endocrinology',
     date: 'Jan 18, 2026',
+    image: 'https://images.unsplash.com/photo-1554177255-61502b352de3?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -157,8 +184,10 @@ export const articles = [
     slug: 'cold-vs-flu',
     title: 'Common Cold vs. Flu: Know the Difference',
     excerpt: 'Comparing symptoms and duration so you know when to rest and when to call a doctor.',
+    category: 'General Health',
     author: 'Dr. Tom Baker, Family Medicine',
     date: 'Jan 12, 2026',
+    image: 'https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -179,8 +208,10 @@ export const articles = [
     slug: 'joint-health-exercise',
     title: 'Exercise Tips for Healthy Joints',
     excerpt: 'Low-impact routines and habits that help protect your joints as you stay active.',
+    category: 'Fitness',
     author: 'Dr. Grace Kim, Orthopedics',
     date: 'Jan 8, 2026',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=320&fit=crop',
     specialtyLink: '/find-doctors',
     ctaLabel: 'Find a Doctor',
     paragraphs: [
@@ -201,4 +232,29 @@ export const articles = [
 
 export function getArticleBySlug(slug) {
   return articles.find((article) => article.slug === slug);
+}
+
+export function getArticleImage(article) {
+  return article?.image || FALLBACK_IMAGE;
+}
+
+export function estimateReadingTime(article) {
+  const words = [
+    ...(article.paragraphs || []),
+    ...(article.sections || []).flatMap((section) => [section.heading, section.body]),
+  ]
+    .join(' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}
+
+export function getRelatedArticles(article, count = 3) {
+  const others = articles.filter((candidate) => candidate.slug !== article.slug);
+  const sameCategory = others.filter((candidate) => candidate.category === article.category);
+  const rest = others.filter((candidate) => candidate.category !== article.category);
+  return [...sameCategory, ...rest].slice(0, count);
 }
