@@ -10,6 +10,7 @@ import DoctorProfile from './pages/DoctorProfile/DoctorProfile';
 import SymptomChecker from './pages/SymptomChecker/SymptomChecker';
 import MyBookings from './pages/MyBookings/MyBookings';
 import Profile from './pages/Profile/Profile';
+import Settings from './pages/Settings/Settings';
 import Contact from './pages/Contact/Contact';
 import BookingConfirmation from './pages/BookingConfirmation/BookingConfirmation';
 import About from './pages/About/About';
@@ -41,6 +42,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="my-bookings" element={<MyBookings />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="booking-confirmation" element={<BookingConfirmation />} />
           </Route>
           <Route path="*" element={<NotFound />} />
