@@ -370,20 +370,20 @@ export default function FindDoctors() {
                           {doctor.availability}
                         </span>
                       )}
-                      <div className="mt-4 flex flex-1 items-end justify-between gap-2">
+                      <div className="mt-4 flex flex-1 flex-wrap items-end justify-between gap-x-2 gap-y-3">
                         <p className="font-display font-semibold text-slate-900 dark:text-white">
                           {doctor.fee}
                         </p>
                         <div className="flex items-center gap-3">
                           <Link
                             to={`/doctors/${doctor._id}`}
-                            className="text-sm font-medium text-brand-700 hover:underline dark:text-brand-400"
+                            className="whitespace-nowrap text-sm font-medium text-brand-700 hover:underline dark:text-brand-400"
                           >
                             View Profile
                           </Link>
                           <Link
                             to={`/doctors/${doctor._id}`}
-                            className="rounded-lg bg-brand-700 px-3 py-1.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
+                            className="whitespace-nowrap rounded-lg bg-brand-700 px-3 py-1.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
                           >
                             Book Appointment
                           </Link>
