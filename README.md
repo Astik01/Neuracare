@@ -19,6 +19,16 @@ bcrypt auth · Jest, React Testing Library, Supertest.
 This is a rebuild of an earlier vanilla HTML/CSS/JS prototype; the whole app now lives in `backend/`
 and `client/` below.
 
+## Screenshots
+
+| Homepage | Find Doctors (dark mode) |
+| --- | --- |
+| ![Homepage in light mode](docs/screenshots/home-light.jpg) | ![Find Doctors page in dark mode](docs/screenshots/find-doctors-dark.jpg) |
+
+| Find Doctors | Symptom Checker |
+| --- | --- |
+| ![Find Doctors page in light mode](docs/screenshots/find-doctors-light.jpg) | ![Symptom Checker first step](docs/screenshots/symptom-checker-light.jpg) |
+
 ## Project structure
 
 ```
