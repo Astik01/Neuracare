@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import ArticleDetail from './ArticleDetail';
 
@@ -19,6 +19,25 @@ describe('ArticleDetail', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Understanding Migraines');
     expect(screen.getByText(/Dr. Emily Rodriguez/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /find a doctor/i })).toBeInTheDocument();
+  });
+
+  it('shows category, reading time, hero image, and the disclaimer', () => {
+    renderAt('migraines');
+
+    expect(screen.getAllByText('General Health').length).toBeGreaterThan(0);
+    expect(screen.getByText(/min read/i)).toBeInTheDocument();
+    expect(document.querySelectorAll('img').length).toBeGreaterThan(0);
+    expect(
+      screen.getByText(/for general health information only and is not medical advice/i),
+    ).toBeInTheDocument();
+  });
+
+  it('shows related articles excluding the current one', () => {
+    renderAt('cold-vs-flu');
+
+    const relatedSection = screen.getByText('Related Articles').closest('div');
+    expect(within(relatedSection).queryByText('Common Cold vs. Flu: Know the Difference')).not.toBeInTheDocument();
+    expect(within(relatedSection).getAllByRole('link', { name: /read article/i }).length).toBeGreaterThan(0);
   });
 
   it('shows a not-found message for an unknown slug', () => {
