@@ -252,8 +252,8 @@ export function estimateReadingTime(article) {
   return `${minutes} min read`;
 }
 
-export function getRelatedArticles(article, count = 3) {
-  const others = articles.filter((candidate) => candidate.slug !== article.slug);
+export function getRelatedArticles(article, allArticles = articles, count = 3) {
+  const others = allArticles.filter((candidate) => candidate.slug !== article.slug);
   const sameCategory = others.filter((candidate) => candidate.category === article.category);
   const rest = others.filter((candidate) => candidate.category !== article.category);
   return [...sameCategory, ...rest].slice(0, count);

@@ -57,7 +57,7 @@ describe('estimateReadingTime', () => {
 describe('getRelatedArticles', () => {
   it('prefers articles from the same category', () => {
     const article = getArticleBySlug('cold-vs-flu');
-    const related = getRelatedArticles(article, 3);
+    const related = getRelatedArticles(article, articles, 3);
 
     expect(related).not.toContainEqual(expect.objectContaining({ slug: 'cold-vs-flu' }));
     const sameCategoryCount = related.filter((a) => a.category === article.category).length;
@@ -66,6 +66,27 @@ describe('getRelatedArticles', () => {
 
   it('respects the requested count', () => {
     const article = getArticleBySlug('heart-disease');
-    expect(getRelatedArticles(article, 2)).toHaveLength(2);
+    expect(getRelatedArticles(article, articles, 2)).toHaveLength(2);
+  });
+
+  it('defaults to the local static article list when none is given', () => {
+    const article = getArticleBySlug('heart-disease');
+    expect(getRelatedArticles(article)).toHaveLength(3);
+  });
+
+  it('works against an externally supplied list (e.g. fetched from the API)', () => {
+    const article = { slug: 'a', category: 'Sleep' };
+    const externalList = [
+      { slug: 'a', category: 'Sleep' },
+      { slug: 'b', category: 'Sleep' },
+      { slug: 'c', category: 'Fitness' },
+    ];
+
+    const related = getRelatedArticles(article, externalList, 2);
+
+    expect(related).toEqual([
+      { slug: 'b', category: 'Sleep' },
+      { slug: 'c', category: 'Fitness' },
+    ]);
   });
 });

@@ -1,16 +1,61 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import {
-  estimateReadingTime,
-  getArticleBySlug,
-  getArticleImage,
-  getRelatedArticles,
-} from '../../data/articles';
+import { apiFetch } from '../../api/client';
+import { estimateReadingTime, getArticleImage, getRelatedArticles } from '../../data/articles';
+import ErrorState from '../../components/ErrorState';
+
+function ArticleDetailSkeleton() {
+  return (
+    <div className="mx-auto max-w-2xl animate-pulse px-4 py-16 sm:px-6">
+      <div className="h-4 w-32 rounded bg-slate-200 dark:bg-slate-700" />
+      <div className="mt-6 h-8 w-3/4 rounded bg-slate-200 dark:bg-slate-700" />
+      <div className="mt-3 h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-700" />
+      <div className="mt-8 h-64 w-full rounded-2xl bg-slate-200 dark:bg-slate-700" />
+      <div className="mt-8 space-y-3">
+        <div className="h-4 w-full rounded bg-slate-200 dark:bg-slate-700" />
+        <div className="h-4 w-full rounded bg-slate-200 dark:bg-slate-700" />
+        <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-700" />
+      </div>
+    </div>
+  );
+}
 
 export default function ArticleDetail() {
   const { slug } = useParams();
-  const article = getArticleBySlug(slug);
+  const [article, setArticle] = useState(null);
+  const [allArticles, setAllArticles] = useState([]);
+  const [status, setStatus] = useState('loading');
+  const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-  if (!article) {
+  useEffect(() => {
+    let cancelled = false;
+    setStatus('loading');
+    setError(null);
+    Promise.all([apiFetch(`/articles/${slug}`), apiFetch('/articles')])
+      .then(([articleData, listData]) => {
+        if (cancelled) return;
+        setArticle(articleData.article);
+        setAllArticles(listData.articles || []);
+        setStatus('success');
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        if (err.status === 404) {
+          setStatus('not-found');
+        } else {
+          setError(err.message);
+          setStatus('error');
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, retryCount]);
+
+  if (status === 'loading') return <ArticleDetailSkeleton />;
+
+  if (status === 'not-found') {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
         <h1 className="mb-2 font-display text-2xl font-bold text-slate-900 dark:text-white">
@@ -23,7 +68,15 @@ export default function ArticleDetail() {
     );
   }
 
-  const relatedArticles = getRelatedArticles(article, 3);
+  if (status === 'error') {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
+        <ErrorState message={error} onRetry={() => setRetryCount((count) => count + 1)} />
+      </div>
+    );
+  }
+
+  const relatedArticles = getRelatedArticles(article, allArticles, 3);
 
   return (
     <article className="mx-auto max-w-2xl px-4 py-16 sm:px-6">

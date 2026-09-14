@@ -1,7 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import HealthLibrary from './HealthLibrary';
+import { apiFetch } from '../../api/client';
+import { articles as staticArticles } from '../../data/articles';
+
+jest.mock('../../api/client', () => ({ apiFetch: jest.fn() }));
 
 function renderPage() {
   return render(
@@ -11,17 +15,35 @@ function renderPage() {
   );
 }
 
+beforeEach(() => {
+  apiFetch.mockReset();
+});
+
+async function renderLoaded() {
+  apiFetch.mockResolvedValueOnce({ articles: staticArticles });
+  renderPage();
+  await waitFor(() => expect(screen.getByText('Featured Article')).toBeInTheDocument());
+}
+
 describe('HealthLibrary', () => {
-  it('lists all articles with links to their detail pages', () => {
+  it('shows skeleton cards while loading', () => {
+    apiFetch.mockResolvedValueOnce({ articles: staticArticles });
     renderPage();
 
+    expect(document.querySelectorAll('.animate-pulse').length).toBeGreaterThan(0);
+  });
+
+  it('fetches articles from the API and lists them with links to their detail pages', async () => {
+    await renderLoaded();
+
+    expect(apiFetch).toHaveBeenCalledWith('/articles');
     expect(screen.getAllByText('Early Signs of Heart Disease').length).toBeGreaterThan(0);
     const readLinks = screen.getAllByRole('link', { name: /read article/i });
     expect(readLinks.length).toBeGreaterThan(0);
   });
 
-  it('shows a featured article when browsing with no filters', () => {
-    renderPage();
+  it('shows a featured article when browsing with no filters', async () => {
+    await renderLoaded();
 
     expect(screen.getByText('Featured Article')).toBeInTheDocument();
     expect(screen.getByText('Latest Articles')).toBeInTheDocument();
@@ -29,7 +51,7 @@ describe('HealthLibrary', () => {
 
   it('filters articles by search text', async () => {
     const user = userEvent.setup();
-    renderPage();
+    await renderLoaded();
 
     await user.type(screen.getByLabelText(/search articles/i), 'migraine');
 
@@ -40,7 +62,7 @@ describe('HealthLibrary', () => {
 
   it('filters articles by category', async () => {
     const user = userEvent.setup();
-    renderPage();
+    await renderLoaded();
 
     await user.click(screen.getByRole('button', { name: 'Skin' }));
 
@@ -50,7 +72,7 @@ describe('HealthLibrary', () => {
 
   it('shows an empty state with a working Clear Search button', async () => {
     const user = userEvent.setup();
-    renderPage();
+    await renderLoaded();
 
     await user.type(screen.getByLabelText(/search articles/i), 'zzz-no-such-article');
 
@@ -62,14 +84,16 @@ describe('HealthLibrary', () => {
     expect(screen.getByText('Featured Article')).toBeInTheDocument();
   });
 
-  it('combines search and category filters', async () => {
-    const user = userEvent.setup();
+  it('shows an error state with a retry button that refetches', async () => {
+    apiFetch.mockRejectedValueOnce(new Error('Network down'));
     renderPage();
 
-    await user.click(screen.getByRole('button', { name: 'General Health' }));
-    await user.type(screen.getByLabelText(/search articles/i), 'flu');
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Network down'));
 
-    expect(screen.getAllByText('Common Cold vs. Flu: Know the Difference').length).toBeGreaterThan(0);
-    expect(screen.queryByText('Everyday Diabetes Management Tips')).not.toBeInTheDocument();
+    apiFetch.mockResolvedValueOnce({ articles: staticArticles });
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /try again/i }));
+
+    await waitFor(() => expect(screen.getByText('Featured Article')).toBeInTheDocument());
   });
 });

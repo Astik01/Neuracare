@@ -1,6 +1,21 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CATEGORIES, articles, estimateReadingTime, getArticleImage } from '../../data/articles';
+import { apiFetch } from '../../api/client';
+import { CATEGORIES, estimateReadingTime, getArticleImage } from '../../data/articles';
+import ErrorState from '../../components/ErrorState';
+
+function ArticleCardSkeleton() {
+  return (
+    <li className="animate-pulse overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card dark:border-slate-700 dark:bg-slate-800">
+      <div className="h-40 w-full bg-slate-200 dark:bg-slate-700" />
+      <div className="space-y-3 p-5">
+        <div className="h-3 w-1/3 rounded bg-slate-200 dark:bg-slate-700" />
+        <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-700" />
+        <div className="h-3 w-full rounded bg-slate-200 dark:bg-slate-700" />
+      </div>
+    </li>
+  );
+}
 
 function sortByDateDesc(list) {
   return [...list].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -37,6 +52,30 @@ function ArticleCard({ article }) {
 export default function HealthLibrary() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+  const [articles, setArticles] = useState([]);
+  const [status, setStatus] = useState('loading');
+  const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    setStatus('loading');
+    setError(null);
+    apiFetch('/articles')
+      .then((data) => {
+        if (cancelled) return;
+        setArticles(data.articles || []);
+        setStatus('success');
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setError(err.message);
+        setStatus('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [retryCount]);
 
   const filteredArticles = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -46,7 +85,7 @@ export default function HealthLibrary() {
       const haystack = `${article.title} ${article.excerpt} ${article.category}`.toLowerCase();
       return haystack.includes(query);
     });
-  }, [search, category]);
+  }, [articles, search, category]);
 
   const isBrowsing = !search.trim() && !category;
   const sorted = sortByDateDesc(filteredArticles);
@@ -110,7 +149,22 @@ export default function HealthLibrary() {
         </div>
       </div>
 
-      {filteredArticles.length === 0 ? (
+      {status === 'loading' && (
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <ArticleCardSkeleton key={index} />
+          ))}
+        </ul>
+      )}
+
+      {status === 'error' && (
+        <div className="mt-10">
+          <ErrorState message={error} onRetry={() => setRetryCount((count) => count + 1)} />
+        </div>
+      )}
+
+      {status === 'success' && filteredArticles.length === 0 && (
         <div className="mt-12 flex flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center dark:border-slate-700 dark:bg-slate-800">
           <p className="text-slate-600 dark:text-slate-300">No articles found.</p>
           <button
@@ -121,7 +175,9 @@ export default function HealthLibrary() {
             Clear Search
           </button>
         </div>
-      ) : (
+      )}
+
+      {status === 'success' && filteredArticles.length > 0 && (
         <>
           {featured && (
             <div className="mt-10">
