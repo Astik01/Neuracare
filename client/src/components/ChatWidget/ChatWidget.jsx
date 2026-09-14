@@ -1,14 +1,23 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getBotReply } from './botReply';
 
+const QUICK_ACTIONS = [
+  { label: 'Find a Doctor', to: '/find-doctors' },
+  { label: 'Symptom Checker', to: '/symptom-checker' },
+  { label: 'My Appointments', to: '/my-bookings' },
+  { label: 'Health Library', to: '/health-library' },
+  { label: 'Contact Support', to: '/contact' },
+];
+
 const QUICK_REPLIES = ['I have a headache', 'I feel feverish', 'I have chest pain'];
-const GREETING = { from: 'bot', text: 'Hi! Tell me your symptom and I can point you to the right specialist.' };
+const GREETING = { from: 'bot', text: 'Hi! How can I help?' };
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([GREETING]);
   const [input, setInput] = useState('');
+  const navigate = useNavigate();
 
   function send(text) {
     const trimmed = text.trim();
@@ -22,42 +31,74 @@ export default function ChatWidget() {
     setInput('');
   }
 
+  function handleQuickAction(to) {
+    setIsOpen(false);
+    navigate(to);
+  }
+
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {isOpen && (
-        <div className="mb-3 flex max-h-96 w-80 flex-col rounded-2xl border border-slate-200 bg-white shadow-glow dark:border-slate-700 dark:bg-slate-800">
+        <div className="mb-3 flex max-h-[75vh] w-[calc(100vw-2.5rem)] max-w-sm animate-fade-up flex-col rounded-2xl border border-slate-200 bg-white shadow-glow dark:border-slate-700 dark:bg-slate-800">
           <div className="flex items-center justify-between rounded-t-2xl border-b border-slate-200 bg-brand-700 px-4 py-3 dark:border-slate-700">
-            <h2 className="font-display text-sm font-semibold text-white">AI Assistant</h2>
+            <div>
+              <h2 className="font-display text-sm font-semibold text-white">Neuracare Assistant</h2>
+              <p className="text-xs text-brand-100">Rule-based helper, not a real diagnosis</p>
+            </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close chat"
-              className="text-brand-100 hover:text-white"
+              className="flex-shrink-0 text-brand-100 hover:text-white"
             >
               ×
             </button>
           </div>
-          <div className="flex-1 space-y-2 overflow-y-auto px-4 py-3 text-sm">
-            {messages.map((message, index) => (
-              <div
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                className={
-                  message.from === 'user'
-                    ? 'ml-auto max-w-[80%] rounded-2xl bg-brand-700 px-3 py-2 text-white'
-                    : 'mr-auto max-w-[85%] rounded-2xl bg-slate-100 px-3 py-2 text-slate-800 dark:bg-slate-700 dark:text-slate-100'
-                }
-              >
-                <p className="font-medium">{message.text}</p>
-                {message.suggestion && <p className="mt-1 text-xs">{message.suggestion}</p>}
-                {message.suggestion && (
-                  <Link to="/find-doctors" className="mt-1 inline-block text-xs font-medium underline">
-                    Book a doctor →
-                  </Link>
-                )}
-              </div>
-            ))}
+
+          <div className="flex-1 overflow-y-auto px-4 py-3 text-sm">
+            <div className="space-y-2">
+              {messages.map((message, index) => (
+                <div
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  className={
+                    message.from === 'user'
+                      ? 'ml-auto max-w-[80%] rounded-2xl bg-brand-700 px-3 py-2 text-white'
+                      : 'mr-auto max-w-[85%] rounded-2xl bg-slate-100 px-3 py-2 text-slate-800 dark:bg-slate-700 dark:text-slate-100'
+                  }
+                >
+                  <p className="font-medium">{message.text}</p>
+                  {message.suggestion && <p className="mt-1 text-xs">{message.suggestion}</p>}
+                  {message.suggestion && (
+                    <Link
+                      to="/find-doctors"
+                      onClick={() => setIsOpen(false)}
+                      className="mt-1 inline-block text-xs font-medium underline"
+                    >
+                      Book a doctor →
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+              Quick actions
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {QUICK_ACTIONS.map((action) => (
+                <button
+                  key={action.to}
+                  type="button"
+                  onClick={() => handleQuickAction(action.to)}
+                  className="rounded-full bg-brand-50 px-2.5 py-1.5 text-xs font-medium text-brand-700 transition hover:bg-brand-100 dark:bg-brand-900/30 dark:text-brand-300 dark:hover:bg-brand-900/50"
+                >
+                  {action.label}
+                </button>
+              ))}
+            </div>
           </div>
+
           <div className="flex flex-wrap gap-1 border-t border-slate-100 px-4 py-2 dark:border-slate-700">
             {QUICK_REPLIES.map((reply) => (
               <button
