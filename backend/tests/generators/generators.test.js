@@ -2,6 +2,7 @@ const {
   generate_user,
   generate_invalid_user,
   generate_doctor,
+  generate_article,
   generate_booking_payload,
   generate_contact_payload,
   generate_random_payload,
@@ -41,6 +42,18 @@ describe('test-data generators', () => {
     const payload = generate_booking_payload('doctor-id-123');
     expect(payload.doctorId).toBe('doctor-id-123');
     expect(payload.date).toEqual(expect.any(String));
+  });
+
+  it('generate_article produces unique, valid-shaped articles', () => {
+    const a = generate_article();
+    const b = generate_article();
+    expect(a.slug).not.toBe(b.slug);
+    expect(a).toMatchObject({
+      title: expect.any(String),
+      category: expect.any(String),
+      paragraphs: expect.any(Array),
+      sections: expect.any(Array),
+    });
   });
 
   it('generate_contact_payload produces unique valid-shaped contacts', () => {

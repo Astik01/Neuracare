@@ -44,6 +44,24 @@ function generate_booking_payload(doctorId, overrides = {}) {
   };
 }
 
+function generate_article(overrides = {}) {
+  const id = unique();
+  return {
+    slug: `test-article-${id}`,
+    title: `Test Article ${id}`,
+    excerpt: 'A short test excerpt.',
+    category: 'General Health',
+    author: 'Dr. Test',
+    date: 'Jan 1, 2026',
+    image: 'https://images.unsplash.com/photo-test?w=500&h=320&fit=crop',
+    specialtyLink: '/find-doctors',
+    ctaLabel: 'Find a Doctor',
+    paragraphs: ['This is a test paragraph.'],
+    sections: [{ heading: 'Test heading', body: 'Test body.' }],
+    ...overrides,
+  };
+}
+
 function generate_contact_payload(overrides = {}) {
   const id = unique();
   return {
@@ -82,6 +100,7 @@ module.exports = {
   generate_user,
   generate_invalid_user,
   generate_doctor,
+  generate_article,
   generate_booking_payload,
   generate_contact_payload,
   generate_random_payload,
