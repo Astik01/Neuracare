@@ -285,7 +285,7 @@ export default function Layout() {
             ) : (
               <Link
                 to="/login"
-                className="hidden rounded-full bg-brand-700 px-4 py-1.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 sm:inline-block"
+                className="hidden rounded-full bg-brand-700 px-4 py-1.5 text-sm font-medium text-white shadow-soft transition hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500 sm:inline-block"
               >
                 Get Started
               </Link>
@@ -357,7 +357,7 @@ export default function Layout() {
                   <Link
                     to="/login"
                     onClick={closeMobileMenu}
-                    className="block rounded-lg bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800"
+                    className="block rounded-lg bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 dark:bg-brand-600 dark:hover:bg-brand-500"
                   >
                     Get Started
                   </Link>
