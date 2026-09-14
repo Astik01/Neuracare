@@ -1,5 +1,6 @@
 const express = require('express');
 const Contact = require('../models/Contact');
+const { requireAuth } = require('../middleware/auth.middleware');
 
 const router = express.Router();
 
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 });
     res.json({ count: contacts.length, contacts });

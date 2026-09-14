@@ -81,13 +81,4 @@ router.patch('/me/password', requireAuth, async (req, res) => {
   }
 });
 
-router.get('/', requireAuth, async (req, res) => {
-  try {
-    const users = await User.find().select('name email createdAt').sort({ createdAt: -1 });
-    res.json({ count: users.length, users });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch users' });
-  }
-});
-
 module.exports = router;

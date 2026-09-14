@@ -33,19 +33,11 @@ describe('GET /api/users/me', () => {
 });
 
 describe('GET /api/users', () => {
-  it('returns 401 without a token now that the endpoint requires auth', async () => {
-    const res = await request(app).get('/api/users');
-
-    expect(res.status).toBe(401);
-  });
-
-  it('returns the user list with a valid token', async () => {
+  it('no longer exists (removed: no legitimate use for listing all users)', async () => {
     const token = await signupAndGetToken();
 
     const res = await request(app).get('/api/users').set('Authorization', `Bearer ${token}`);
 
-    expect(res.status).toBe(200);
-    expect(res.body.count).toBe(1);
-    expect(res.body.users[0].passwordHash).toBeUndefined();
+    expect(res.status).toBe(404);
   });
 });
