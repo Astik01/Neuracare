@@ -106,7 +106,7 @@ export default function ArticleDetail() {
 
       <img
         src={getArticleImage(article)}
-        alt=""
+        alt={article.title}
         className="mb-8 h-64 w-full rounded-2xl object-cover sm:h-80"
       />
 
@@ -153,7 +153,7 @@ export default function ArticleDetail() {
                 key={related.slug}
                 className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-700 dark:bg-slate-800"
               >
-                <img src={getArticleImage(related)} alt="" className="h-32 w-full object-cover" />
+                <img src={getArticleImage(related)} alt={related.title} className="h-32 w-full object-cover" />
                 <div className="flex flex-1 flex-col p-4">
                   <span className="text-xs font-medium uppercase tracking-wide text-brand-700 dark:text-brand-400">
                     {related.category}

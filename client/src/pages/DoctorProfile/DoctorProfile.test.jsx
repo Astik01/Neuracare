@@ -56,6 +56,7 @@ describe('DoctorProfile', () => {
     expect(screen.getByText('MD, Harvard Medical School')).toBeInTheDocument();
     expect(screen.getByText('English, Spanish')).toBeInTheDocument();
     expect(screen.getByText('Preventive Cardiology')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Dr. Sarah Johnson' })).toBeInTheDocument();
   });
 
   it('shows an error state with a retry button when the doctor cannot be loaded', async () => {

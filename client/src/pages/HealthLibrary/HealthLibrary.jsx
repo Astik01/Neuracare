@@ -24,7 +24,7 @@ function sortByDateDesc(list) {
 function ArticleCard({ article }) {
   return (
     <li className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-700 dark:bg-slate-800">
-      <img src={getArticleImage(article)} alt="" className="h-40 w-full object-cover" />
+      <img src={getArticleImage(article)} alt={article.title} className="h-40 w-full object-cover" />
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-center justify-between gap-2">
           <span className="text-xs font-medium uppercase tracking-wide text-brand-700 dark:text-brand-400">
@@ -188,7 +188,7 @@ export default function HealthLibrary() {
                 to={`/health-library/${featured.slug}`}
                 className="grid gap-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:shadow-soft dark:border-slate-700 dark:bg-slate-800 sm:grid-cols-2"
               >
-                <img src={getArticleImage(featured)} alt="" className="h-56 w-full object-cover sm:h-full" />
+                <img src={getArticleImage(featured)} alt={featured.title} className="h-56 w-full object-cover sm:h-full" />
                 <div className="flex flex-col justify-center p-6 sm:p-8">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-medium uppercase tracking-wide text-brand-700 dark:text-brand-400">

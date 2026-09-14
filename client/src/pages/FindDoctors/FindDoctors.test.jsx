@@ -58,6 +58,15 @@ describe('FindDoctors', () => {
     expect(screen.getByText('Dr. James Patel')).toBeInTheDocument();
   });
 
+  it('gives each doctor photo meaningful alt text', async () => {
+    apiFetch.mockResolvedValueOnce({ doctors: DOCTORS });
+    renderPage();
+
+    await waitFor(() => expect(screen.getByText('Dr. Sarah Johnson')).toBeInTheDocument());
+    expect(screen.getByRole('img', { name: 'Dr. Sarah Johnson' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Dr. James Patel' })).toBeInTheDocument();
+  });
+
   it('filters doctors by search', async () => {
     apiFetch.mockResolvedValueOnce({ doctors: DOCTORS });
     const user = userEvent.setup();

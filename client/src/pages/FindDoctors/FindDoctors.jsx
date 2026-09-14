@@ -354,7 +354,7 @@ export default function FindDoctors() {
                   >
                     <img
                       src={doctor.photo || FALLBACK_PHOTO}
-                      alt=""
+                      alt={doctor.name}
                       className="h-40 w-full object-cover"
                     />
                     <div className="flex flex-1 flex-col p-5">

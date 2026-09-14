@@ -238,7 +238,7 @@ export default function About() {
             >
               <img
                 src={member.photo}
-                alt=""
+                alt={member.name}
                 className="mx-auto h-20 w-20 rounded-full object-cover"
               />
               <p className="mt-4 font-display font-semibold text-slate-900 dark:text-white">

@@ -49,6 +49,12 @@ describe('HealthLibrary', () => {
     expect(screen.getByText('Latest Articles')).toBeInTheDocument();
   });
 
+  it('gives each article image meaningful alt text', async () => {
+    await renderLoaded();
+
+    expect(screen.getAllByRole('img', { name: 'Early Signs of Heart Disease' }).length).toBeGreaterThan(0);
+  });
+
   it('filters articles by search text', async () => {
     const user = userEvent.setup();
     await renderLoaded();

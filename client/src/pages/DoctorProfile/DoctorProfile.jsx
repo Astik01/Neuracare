@@ -144,7 +144,7 @@ export default function DoctorProfile() {
           <div className="flex flex-col gap-5 sm:flex-row">
             <img
               src={doctor.photo || FALLBACK_PHOTO}
-              alt=""
+              alt={doctor.name}
               className="h-32 w-32 flex-shrink-0 rounded-2xl object-cover shadow-card"
             />
             <div>

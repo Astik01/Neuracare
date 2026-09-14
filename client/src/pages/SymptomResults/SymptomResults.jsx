@@ -171,7 +171,7 @@ export default function SymptomResults() {
           <div className="mt-4 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-700 dark:bg-slate-800 sm:flex-row sm:items-center">
             <img
               src={recommendedDoctor.photo || FALLBACK_DOCTOR_PHOTO}
-              alt=""
+              alt={recommendedDoctor.name}
               className="h-20 w-20 flex-shrink-0 rounded-xl object-cover"
             />
             <div className="flex-1">

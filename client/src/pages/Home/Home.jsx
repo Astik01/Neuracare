@@ -421,7 +421,7 @@ export default function Home() {
                 >
                   <img
                     src={doctor.photo || FALLBACK_DOCTOR_PHOTO}
-                    alt=""
+                    alt={doctor.name}
                     className="h-40 w-full object-cover"
                   />
                   <div className="flex flex-1 flex-col p-5">
@@ -477,7 +477,7 @@ export default function Home() {
               >
                 <img
                   src={getArticleImage(article)}
-                  alt=""
+                  alt={article.title}
                   className="h-40 w-full object-cover"
                 />
                 <div className="flex flex-1 flex-col p-5">
