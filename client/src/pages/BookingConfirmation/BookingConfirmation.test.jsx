@@ -1,42 +1,64 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import BookingConfirmation from './BookingConfirmation';
 
-function renderPage() {
+const BOOKING_STATE = {
+  doctor: { id: '1', name: 'Dr. Sarah Johnson', specialty: 'cardiology' },
+  date: '2026-03-05',
+  time: '09:00 AM',
+  consultationType: 'in-person',
+  fee: '$150',
+};
+
+function renderPage(state) {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[{ pathname: '/booking-confirmation', state }]}>
       <BookingConfirmation />
     </MemoryRouter>,
   );
 }
 
 describe('BookingConfirmation', () => {
-  afterEach(() => sessionStorage.clear());
+  it('renders the booking details from navigation state', () => {
+    renderPage(BOOKING_STATE);
 
-  it('renders the booking details when present in sessionStorage', () => {
-    sessionStorage.setItem(
-      'neuracare_last_booking',
-      JSON.stringify({ doctorName: 'Dr. Sarah Johnson', date: '2026-01-01', time: '10:00' }),
-    );
-
-    renderPage();
-
+    expect(screen.getByText('Appointment Confirmed')).toBeInTheDocument();
     expect(screen.getByText('Dr. Sarah Johnson')).toBeInTheDocument();
-    expect(screen.getByText(/2026-01-01 at 10:00/)).toBeInTheDocument();
+    expect(screen.getByText('cardiology')).toBeInTheDocument();
+    expect(screen.getByText(/09:00 AM/)).toBeInTheDocument();
+    expect(screen.getByText('In-person visit')).toBeInTheDocument();
+    expect(screen.getByText('$150')).toBeInTheDocument();
   });
 
-  it('shows a fallback message when no booking details are stored', () => {
-    renderPage();
+  it('shows a fallback message when no booking details are present', () => {
+    renderPage(undefined);
 
     expect(screen.getByText(/booking details not found/i)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /add to calendar/i })).not.toBeInTheDocument();
   });
 
-  it('links to My Bookings', () => {
-    renderPage();
+  it('links to My Bookings and Home', () => {
+    renderPage(BOOKING_STATE);
 
     expect(screen.getByRole('link', { name: /view my bookings/i })).toHaveAttribute(
       'href',
       '/my-bookings',
     );
+    expect(screen.getByRole('link', { name: /back to home/i })).toHaveAttribute('href', '/');
+  });
+
+  it('triggers an .ics download when Add to Calendar is clicked', async () => {
+    const user = userEvent.setup();
+    const createObjectURL = jest.fn(() => 'blob:mock-url');
+    const revokeObjectURL = jest.fn();
+    global.URL.createObjectURL = createObjectURL;
+    global.URL.revokeObjectURL = revokeObjectURL;
+
+    renderPage(BOOKING_STATE);
+    await user.click(screen.getByRole('button', { name: /add to calendar/i }));
+
+    expect(createObjectURL).toHaveBeenCalled();
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:mock-url');
   });
 });
