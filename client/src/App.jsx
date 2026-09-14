@@ -8,6 +8,7 @@ import Signup from './pages/Signup/Signup';
 import FindDoctors from './pages/FindDoctors/FindDoctors';
 import DoctorProfile from './pages/DoctorProfile/DoctorProfile';
 import SymptomChecker from './pages/SymptomChecker/SymptomChecker';
+import SymptomResults from './pages/SymptomResults/SymptomResults';
 import MyBookings from './pages/MyBookings/MyBookings';
 import Profile from './pages/Profile/Profile';
 import Settings from './pages/Settings/Settings';
@@ -32,6 +33,7 @@ function App() {
           <Route path="find-doctors" element={<FindDoctors />} />
           <Route path="doctors/:id" element={<DoctorProfile />} />
           <Route path="symptom-checker" element={<SymptomChecker />} />
+          <Route path="symptom-checker/results" element={<SymptomResults />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about" element={<About />} />
           <Route path="health-library" element={<HealthLibrary />} />
